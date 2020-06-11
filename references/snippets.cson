@@ -1,4 +1,78 @@
-'.source.js':
-  'Snippet Name':
-    'prefix': 'Snippet Trigger'
-    'body': 'Hello World!'
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+'.source.python':
+	'new String':
+    'prefix': 'newStr'
+    'body': '$1 = str("$2")',
+
+	'new Integer':
+		'prefix': 'newI'
+		'body':	'$1 = int($2)',
+
+	'new Float':
+		'prefix': 'newFl'
+		'body': '$1 = float($2.$3)',
+
+	'new Complex':
+		'prefix': 'newC'
+		'body': '$1 = complex($1)',
+
+	'new List':
+		'prefix': 'newL'
+		'body': '$1 = list(("$2", "$3", "$4"))',
+
+	'new Tuple':
+		'prefix': 'newT'
+		'body': '$1 = tuple(("$2", "$3", "$4"))',
+
+	'new Range':
+		'prefix': 'newR'
+		'body': '$1 = range($2)',
+
+	'new Dict':
+		'prefix': 'newD'
+		'body': '$1 = dict($2="$3", $4=$5)',
+
+	'new Set':
+		'prefix': 'newSet'
+		'body': '$1 = set(("$2", "$3", "$4"))',
+
+	'new FrozenSet':
+		'prefix': 'newFr'
+		'body': '$1 = frozenset(("$2", "$3", "$4"))',
+
+	'new Boolean':
+		'prefix': 'newBool'
+		'body': '$1 = bool($2)',
+
+	'new Bytes':
+		'prefix': 'newBy'
+		'body': '$1 = bytes($2)',
+
+	'new ByteArray':
+		'prefix': 'newByA'
+		'body': '$1 = bytearray($2)',
+
+	'new MemoryView':
+		'prefix': 'newMV'
+		'body': '$1 = memoryview(bytes($2))'
