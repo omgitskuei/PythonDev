@@ -1,4 +1,6 @@
-String variables can be declared either by using single or double quotes:
+# Strings count as sequence type because it can be indexed and sliced
+
+# String variables can be declared either by using single or double quotes:
 x = "John"
 # is the same as
 x = 'John'
@@ -60,9 +62,8 @@ Usage: thingy [OPTIONS]\
 
 
 # NOTE: Strings can be repeated with *
->>> # 3 times 'un', followed by 'ium'
->>> 3 * 'um ' + 'ium'
-# 'um um um ium'
+# eg. 3 times 'um', followed by 'ium'
+>>> 3 * 'um ' + 'ium'	# answer = 'um um um ium'
 
 
 # NOTE: 2 string literals will auto-concatenate
@@ -72,8 +73,7 @@ Usage: thingy [OPTIONS]\
 # This feature is particularly useful when you want to break long strings:
 >>> text = ('Put several strings within parentheses '
 ...         'to have them joined together.')
->>> text
-# 'Put several strings within parentheses to have them joined together.'
+>>> text	# answer = 'Put several strings within parentheses to have them joined together.'
 
 
 # NOTE: This only works with literals (does not work with variables)
@@ -83,3 +83,7 @@ Usage: thingy [OPTIONS]\
 #     prefix 'thon'
 #                 ^
 # SyntaxError: invalid syntax
+
+# The built-in function len() returns the length of a string:
+>>> s = 'supercalifragilisticexpialidocious'
+>>> len(s) # answer = 34

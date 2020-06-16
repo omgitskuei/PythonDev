@@ -33,7 +33,7 @@ print(type(y))
 print(type(z))
 
 # Type Conversion
-# Note: CANNOT convert complex numbers into another number type.
+# NOTE: CANNOT convert complex numbers into another number type.
 x = 1    # int
 y = 2.8  # float
 z = 1j   # complex
@@ -43,12 +43,12 @@ a = float(x)
 b = int(y)
 # convert int to complex:
 c = complex(x)
-print(a)
-print(b)
-print(c)
-print(type(a))
-print(type(b))
-print(type(c))
+print(a)			# prints 1.0
+print(b)			# prints 2
+print(c)			# prints (1+0j)
+print(type(a))		# prints class 'float'
+print(type(b))		# prints class 'int'
+print(type(c))		# prints class 'complex'
 # convert float to complex???
 # long numerics type???
 
@@ -60,4 +60,4 @@ print(type(c))
 # but Python has a built-in module called random that can be used to make random numbers:
 # Import the random module, and display a random number between 1 and 9:
 import random
-print(random.randrange(1, 10)) # note: end-range (in this case 10) is exclusive
+print(random.randrange(1, 10)) # NOTE: end-range (in this case 10) is exclusive
