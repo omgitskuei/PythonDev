@@ -1,5 +1,16 @@
 # Strings count as sequence type because it can be indexed and sliced
 
+# NOTE: Strings in Python are immutable/cannot be changed!!!
+word = 'Python'
+# word[0] = 'J'
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# TypeError: 'str' object does not support item assignment
+
+# if you need a new string, just make one
+'J' + word[1:]
+'Jython'
+
 # String variables can be declared either by using single or double quotes:
 x = "John"
 # is the same as
