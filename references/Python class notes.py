@@ -1,153 +1,18 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[65]:
 
 
-#Python's 特性 [te4xing4] characteristics and 由來/來源 [you2lai2/lai2yuan2] origins:
-#characteristics 特性:
-#  開源 [Kāiyuán] Open source
-#    - this enables internet of things "IoT", big data, machine learning
-#  脚本語言 Scripting Language
-#    - is an Interpretted language, where code is executed line by line - easier to debug
-#    - 不用宣告 [xuan1gao4] 類別 Dynamically Typed language - type decided at run time, don't have to declare type in advanced
-#  高階 [gao1jie1] 程式語言  High level language
-#    - don't need to manage memory, nor remember system architecture
-#  通用性 [tong1yong4xing2] 程式語言  General Purpose 
-#    - Applicable to numerous fields and uses; build website, analyse data, "IoT" (devices in smart city), etc
-#  互動式環境 [hu4dong4shi4 huan2jing4] Interactive Shell
-#  高擴展性 [gao1 kuo4zhan3 xing4] easy to expand on
-#    - is an Extensible language - can write and compile python code into C++ language
-#    - 可以在所有平臺[ping2tai2]上執行 is portable - can run python code on windows, linux, unix, mac
-#    - 標準程式庫 [biao1zhun3 cheng2shi4ku4] 提供很多 模組 [mo2zu3] Large standard library with many modules 
-#    - 標準程式庫 [biao1zhun3 cheng2shi4ku4] 可以直接使用 Standard library can be used immediately after install
-#    - GUI programming support with modules eg. PyQt5
-#  物件 [wu4jian4] 導向 [dao3xiang4] Object oriented
-#    - supports concepts of class 可以定義 [ding4yi4] 類別 [lei4bie2]
-#  功能 [gong1neng2] 導向 [dao3xiang4]
 
-#origins 由來： 
-#  Holland 荷蘭 
-#  1991年
-#  Guido van Rossum
-#  依 yi1 Monty Python named after 命名
-
-
-# In[66]:
-
-
-#can use exit() to quit the 互動式環境 interactive shell
-#one of the benefits of using the 互動式環境 hudongshihuanjing is the ability to see information about the Python installed.
-#Python 3.7.4 at the time of these note-taking is ideal, and official
-#Python's jiaobenchengshi 脚本程式 scripting file has the extension .py
-
-#Python IDLE is an integrated 整合 zheng3he2 開發  kai1fa1 development & 學習環境
-#IDLE is cross platform
-#Python IDLE stands for Integrated Development Environment
-#This comes with helpful features:
-#    - auto-closing brackets,
-#    - autosave,
-#    - exit() code changed into buttons,
-#    - debugging, highlighting, color-coding
-#    - multi-window text editor
-#    - breakpoints
-
-
-# In[67]:
-
-
-#Lab for this class is on virtuallab.tw, acc kueifengtungchris@gmail.com, vt[OMFG]1, course DEM_Python 5121
-
-
-# In[68]:
-
-
-#Nomeclature Rules for Python
-#Remember that variable names are Case-Sensitive, because Python has to run properly on Linux.
-#Variable names cannot contain special characters like !, $, @.
-#FIRST CHARACTER of variable name must be underscore (_) OR letter, it CANNOT be number (1flag, would be 'wrong')
-#Also, there's terms that are reserved, and cannot/shouldn't be used for variable names, 
-#... primarily because they already serve another function in Python).
-
-
-# In[69]:
-
-
-#RESERVED TERMS
-#    - False, True
-#    - None
-#    - and, as
-#    - assert
-#    - async
-#    - await
-#    - class, for, if, global, import, from, try, while, def, yield
-#    - continue, break, else, elif (means else-if for python), except
-#    - del
-#    - finally
-#    - in, is, with
-#    - lambda
-#    - nonlocal
-#    - not, or
-
-
-# In[70]:
-
-
-#Arithmetic Operators
-#A percent sign % is the "modulo operator", this returns the remainder of a division
-#31 % 7 = 3, because 7 goes into 31 four times for 28, and 31-28=3.
-remainder=17%6; print(remainder) #equals 5, because 6*2=12, 17-12=remainder 5
-remainder=10%2; print(remainder) #equals 0, 10/2=5r0 
-
-#Two ** multiple symbols are for a power relationship (squared, cubed, etc)
-squared=9**2; print(squared) #equals 81, 9**2=9^2=9*9=81
-
-#Two // division symbols are for floor division, where division between two numbers is done but ...
-#... numbers after the decimal are ignored.
-#Floats can be used with // too. # 4/2 and 4//2 both equal 2 because there's no decimals either way.
-#Note: #'these single dotted quotes' and "these double dotted quotes" are equivalent in Python
-x = 4.0 // 2.0; print("4//2=", x) 
-#9/2 is 4.5, while 9//2=4
-x = 9 // 2; print("9//2", x) 
-#Notice floor division resulting in a negative answer is still rounded down
-x = -9//2; print("-9//2=", x) #equals -5, not -4
-
-
-# In[109]:
-
-
-#Comparison/Relational Operators
-a=1
-b=2
-#"==" tests to see if two operands are equal, if so, True
-print("#1", a==b)
-#"!=" is the opposite of "==", means IS NOT EQUAL. Alternatively also spelt "<>" in Python 2 but not existent in 3.
-print("#2", a!=b)
-#>, <, >=, and <= for greater, less than, etc
-print("#3", a>b)
-#You can link many variables together, more than 2
-print("#4", 4 <= 6 > 7) #(4 <= 6 is True) AND (6 > 7 is False), so True AND False, False 
-
+# NOTE: 'these single dotted quotes' and "these double dotted quotes" are equivalent in Python
 
 # In[97]:
 
 
 #Assignment Operators
-a=2
-b=3
-#"b = b+a" can be written as "b += a", this can be repeated.
-b+=a; print(b) #b = 3+2 = 5
-b+=a; print(b) #b = 5+2 = 7
-#Same thing for -=, *=, /=
-b-=a; print(b) #b = 9-7 = 5
-b*=a; print(b) #b = 7*2 = 10
-b/=a; print(b) #b = 14/2 = 5
+
+
+
 #modulo
-a=3
-b=8
-b%=a; print(b) #modulo returns remainder, 8/3 = 2r2, b = b%a = 8%3 = 2
-b**=a; print(b) #power, b = b^a = 2^3 = 8
-b//=a; print(b) #floor division, b = b//a = 8//3 = 2 (regular division wouldve given you 2.6667)
+
+
 
 #I did a 'multiple assignment';
 #Multiple assignment can be different TYPES fyi; a, b, c = "Kuei", 26, "Taiwan".
@@ -155,102 +20,16 @@ a, b, c, d, e="hello", "my", "name", "is", "Kuei"
 print(a, b, c, d, e)
 
 
-# In[28]:
 
 
-#Logical Operators
-#To a boolean, any integar larger than 0 is "True"
-print("#1", bool(1))
-print("#2", bool(1 and 2)) #and, both need to be True to equal True
-print("#3", bool(0 and 43)) #False and True = False
-print("#4", bool(0 or 2)) #or, one needs to be True to equal True, False or True = True
-#x and y; if x is False, then x, else y.
-print("#5", 7 and 6) #x=7 is True (True aka >0), else y.
-print("#6", 7 and 0) #x is True, else y.
-print("#7", 0 and 1) #x is False, then x.
-print("#8", 0 and 0) #x is True, else y.
-#x or y; if x is False, then y, else x.
-print("#9", 7 or 5) #x is True, else x.
-print("#10", 7 or 87) #x is True, else x.
-print("#11", 0 or 3) #x is False, then y.
-print("#12", 0 or 0) #x is False, then y.
-#not x; if x is false, then True, else False.
-print("#13", not 3) #3 is  True, else False.
-
-#FYI, all of these are considered FALSE;
-#    - False
-#    - None
-#    - 0
-#    - 0.0
-#    - empty "", emptylist1[], empty(), emptydict1{}, emptyset() 
-
-#Remember that booleans can be compared to each other with And and Or.
-print("TaF", True and False)
-print("TaT", True and True)
-print("FaF", False and False)
-
-print("ToF", True or False)
-print("ToT", True or True)
-print("FoF", False or False)
 
 
-# In[198]:
 
 
-#Membership Operators
-#in tests if value is in data sequence, True, else False
-a=[1, 2, 3, 4]
-print(2 in a)
-print(3 not in a)
 
 
-# In[75]:
 
 
-#Identity Operators
-#
-#
-
-
-# In[194]:
-
-
-#Bitwise Operators
-#AND; a&b means both must be 1's to be True.
-#OR; a|b means AT LEAST one must be 1's to be True.
-#NOT OR; a^b means EXACTLY one must be 1's to be True. Aka, a and b must be different 0 and 1 or 1 and 0 to be True.
-print("a", "b", "&", "|", "^")
-a = 0; b = 0
-print(a, b, a&b, a|b, a^b)
-a = 0; b = 1
-print(a, b, a&b, a|b, a^b)
-a = 1; b = 1
-print(a, b, a&b, a|b, a^b)
-a = 1; b = 0
-print(a, b, a&b, a|b, a^b, "\n") #\n means "new line", or Enter
-
-#To format a int into binary, use "{index:b}".format(variable).
-a=60
-print("a=60,", "{0:b}".format(a))
-#If you see >> or <<, eg. a>>2, it means you convert to binary, add <<x or  subtract >>x (x number of) zeros from the back.
-print("a<<2, ", "{0:b}".format(a<<1), "a=","{}".format(a<<1))
-print("a<<2, ", "{0:b}".format(a<<2), "a=","{}".format(a<<2))
-print("a<<3, ", "{0:b}".format(a<<3), "a=","{}".format(a<<3))
-print("a=60,", "{0:b}".format(a))
-print("a>>1, ", "{0:b}".format(a>>1), "a=","{}".format(a>>1))
-print("a>>2, ", "{0:b}".format(a>>2), "a=","{}".format(a>>2))
-print("a>>3, ", "{0:b}".format(a>>3), "a=","{}".format(a>>3), "\n")
-#You can do math with binary:
-#(Step 1) Convert both numbers into binary
-#(Step 2) Look at the operator (&, |, ^) and apply their logic to it...
-#    & - if both are 1's, then 1, else 0.
-#    | - if at least one is 1, then 1, else 0.
-#    ^ - if exactly one is 1, then 1, else 0.
-print("60 in binary,", "{0:b}".format(60))
-print("13 in binary,", "{0:b}".format(13))
-print(60&13, "{0:b}".format(60&13)) #Note this is VERY DIFFERENT from "60 and 13"
-print(60|13)
-print(60^13)
 
 
 # In[3]:
@@ -337,7 +116,7 @@ print(f'[{1+3}] is 1+3 is 4.')
 
 #f-strings lets me call the comedian dictionary and fill in data
 comedian = {"name": "Eric Idle", "age": 74}
-f"The comedian is {comedian['name']}, aged {comedian['age']}." 
+f"The comedian is {comedian['name']}, aged {comedian['age']}."
 #note that the comedian['name'] part can't use "" because "" are already in use by the f-string.
 
 
@@ -363,7 +142,7 @@ print("alnum:",a.isalnum()) #False, because there's a space, which is neither le
 print(b.isalnum())
 print(c.isalnum())
 print(a.isspace())
-print(a.islower()) 
+print(a.islower())
 print(a.isupper()) #False, must be all upper case
 
 print(a.split()) #Splits "Hello World" where there are spaces
@@ -533,7 +312,7 @@ for var in [1, 2, 3]:
 
 for i in range(3):
     print(i)
-    
+
 list1=[1,2,3]
 for i in range(len(list1)):
     print(i)
@@ -794,7 +573,7 @@ dict2.popitem()
 
 #library named thesaurus will return a value when given a key
 #Eg. I give thesaurus "sword", it looks it up and returns the value "blade"
-#remember that the KEY MUST BE UNIQUE 
+#remember that the KEY MUST BE UNIQUE
 thesaurus={"mean":"unkind", "welcoming":"likable", "sword":"blade"}
 print(thesaurus["mean"])
 #remember that the format of libraries is always KEY:VALUE
@@ -955,7 +734,7 @@ set('foo')
 {'o', 'f'}
 
 #A set can be empty. However, recall that Python,
-#... interprets empty curly braces ({}) as an empty dictionary, 
+#... interprets empty curly braces ({}) as an empty dictionary,
 #... so the only way to define an empty set is with the set() function:
 x = set()
 type(x)
@@ -1000,7 +779,7 @@ False
 
 
 #Read/Writing files
-#Open/Create new file 
+#Open/Create new file
 fo = open('myfile.txt', "w")
 print('File Name:', fo.name)
 #Open file, similar to w, but x will make error message if no file found, will not create new)
@@ -1102,7 +881,3 @@ print(x.read().decode('utf-8'));
 
 
 # In[ ]:
-
-
-
-
