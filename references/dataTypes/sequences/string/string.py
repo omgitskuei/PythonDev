@@ -1,15 +1,14 @@
 # Strings count as sequence type because it can be indexed and sliced
 
-# NOTE: Strings in Python are immutable/cannot be changed!!!
+# NOTE: While they're sequences, Strings in Python are immutable/cannot be changed!!!
 word = 'Python'
-# word[0] = 'J'
-# Traceback (most recent call last):
-#   File "<stdin>", line 1, in <module>
+word[0] = 'J'		# executing this line will lead to TypeError;
 # TypeError: 'str' object does not support item assignment
 
 # if you need a new string, just make one
-'J' + word[1:]
-'Jython'
+word = 'Python';
+word = 'J' + word[1:];		# prints 'Jython'
+print(word);
 
 # String variables can be declared either by using single or double quotes:
 x = "John"
@@ -17,35 +16,13 @@ x = "John"
 x = 'John'
 
 #  \ can be used to escape quotes:
->>> 'doesn\'t'  # use \' to escape the single quote...
-# "doesn't"
->>> "doesn't"  # ...or use double quotes instead
-# "doesn't"
->>> '"Yes," they said.'
-# '"Yes," they said.'
->>> "\"Yes,\" they said."
-# '"Yes," they said.'
->>> '"Isn\'t," they said.'
-# '"Isn\'t," they said.'
-
-
-# NOTE: special characters like \n for newline are ignore without print()
->>> s = 'First line.\nSecond line.'  # \n means newline
->>> s  # without print(), \n is included in the output
-# 'First line.\nSecond line.'
->>> print(s)  # with print(), \n produces a new line
-# First line.
-# Second line.
-
-
-# NOTE: Using 'raw String' to ignore special characters
-# If you don’t want characters prefaced by \ to be interpreted as special
-# characters, you can use raw strings by adding an r before the first quote:
->>> print('C:\some\name')  # here \n means newline!
-# C:\some
-# ame
->>> print(r'C:\some\name')  # note the r before the quote
-# C:\some\name
+# use \' to escape the single quote...
+>>> 'doesn\'t'  			# prints "doesn't"
+ # ...or use double quotes instead
+>>> "doesn't" 				# prints "doesn't"
+>>> '"Yes," they said.'		# prints '"Yes," they said.'
+>>> "\"Yes,\" they said."	# prints '"Yes," they said.'
+>>> '"Isn\'t," they said.'	# prints '"Isn\'t," they said.'
 
 
 # NOTE: String literals can span multiple lines.
@@ -97,4 +74,4 @@ Usage: thingy [OPTIONS]\
 
 # The built-in function len() returns the length of a string:
 >>> s = 'supercalifragilisticexpialidocious'
->>> len(s) # answer = 34
+>>> len(s)		# prints 34

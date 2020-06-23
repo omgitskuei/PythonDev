@@ -53,6 +53,10 @@ print(type(c))		# prints class 'complex'
 # long numerics type???
 
 
+#You can use str.format() to specify decimal points.
+a=2.1291
+b="{0:0.2f}".format(a)
+print(b) #Notice I asked it for 2 decimal points and it ROUNDED UP.
 
 
 # Random Number

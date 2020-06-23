@@ -46,3 +46,8 @@ w = float("4.2") # w will be 4.2
 x = str("s1") # x will be 's1'
 y = str(2)    # y will be '2'
 z = str(3.0)  # z will be '3.0'
+
+# NOTE: Multiple assignment can be different TYPES
+# fyi; a, b, c = "Kuei", 26, "Taiwan".
+a, b, c, d, e="hello", "my", "age", "is", 2
+print(a, b, c, d, e)

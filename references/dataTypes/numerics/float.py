@@ -10,3 +10,9 @@ z = -87.7e100
 print(type(x))
 print(type(y))
 print(type(z))
+
+
+#You can use str.format() to specify decimal points.
+a=2.1291
+b="{0:0.2f}".format(a)
+print(b) #Notice I asked it for 2 decimal points and it ROUNDED UP.
