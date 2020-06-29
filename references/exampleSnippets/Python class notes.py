@@ -1,35 +1,3 @@
-#input, eval
-#formula is input(prompt), prompt can be "Type a word", "Enter digit", etc
-#input doesn't calculate, so entering 3+3 will give you 3+3
-a=input("Enter Expression!")
-print(a)
-
-#formula is eval(expression), eval calculates something, "Enter expression"
-#eval(3+3) will give 6.
-print(eval(input("Enter expression")))
-
-
-# In[4]:
-
-
-#Indentation
-#4 spaces per indent level, using space instead of tab is PREFER'd
-#Only use tab if to remain consistent
-if True:
-    print("True")
-else:
-    print("False")
-#Indents always follow : colon.
-#the Indents must be aligned:
-#if True:
-#    print("True")
-#     print("True")    #this would cause IndentationError
-#else:
-#    print("False")
-
-
-# In[25]:
-
 
 #Conditional statements
 x=2
@@ -39,8 +7,13 @@ for i in range(5):
     i+=1
     x-=1
     y+=1
-print(bool(1 or 0), bool(0 or 0))
-#so, bool(x and y) is True so long as BOTH x and y are not 0's, bool(x or y) is True so long as AT LEAST one is not 0.
+	#so, bool(x and y) is True so long as BOTH x and y are not 0's, bool(x or y) is True so long as AT LEAST one is not 0.
+
+print(bool(0));
+print(bool(1));
+print(bool(3 and 2));
+print(bool(1 or 0), bool(0 or 0));
+
 
 
 # In[5]:
@@ -126,19 +99,7 @@ for i in range(1, 5):         #range(1,5) means 1, 2, 3, 4
     print()                    #total number times ran is 4*4
 
 
-# In[19]:
 
-
-#range()
-#formula range([start], stop, [step])
-#formula's start and step are both optional;
-#start defaults to 0
-#step defaults to 1
-print(list(range(5)))   #remember starts at 0 and doesnt include 5
-print(list(range(1,30,2)))
-
-
-# In[20]:
 
 
 #break
@@ -183,40 +144,6 @@ print(id(a))
 print(id(b))
 #Note how the logic compares ID's
 print(a is b)
-
-
-# In[91]:
-
-
-#.upper() converts string a into upper-case, and vice versa with .lower().
-a="Hello"
-print(a.upper())
-print(a.lower())
-
-
-# In[92]:
-
-
-print(a)
-print("Words only? "+ str(a.isalpha()))
-print("Digits only? "+ str(a.isdigit()))
-print("Words OR Digist? "+ str(a.isalnum()))
-print("Is ???????????????????? "+ str(a.isspace()))
-print("Is entirely in lower case? "+ str(a.islower()))
-print("Is entirely in upper case? "+ str(a.isupper()))
-
-
-# In[93]:
-
-
-#strip!
-
-#rstrip
-
-#split
-
-
-# In[94]:
 
 
 #

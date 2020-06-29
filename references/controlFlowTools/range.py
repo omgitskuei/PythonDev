@@ -1,6 +1,6 @@
 # range() Function
 # If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates arithmetic progressions:
-for i in range(5):
+for i in range(0, 5, 1):
 	print(i)
 # 0
 # 1
@@ -10,7 +10,7 @@ for i in range(5):
 
 # The given end point is never part of the generated sequence; range(10) generates 10 values, the legal indices for items of a sequence of length 10. It is possible to let the range start at another number, or to specify a different increment (even negative; sometimes this is called the ‘step’):
 
-# NOTE: range(beginIndex, endIndexExclusive, stepDefault1)
+# NOTE: range(beginIndex, endIndexExclusive, step)
 range(5, 10)				# prints 5, 6, 7, 8, 9
 range(0, 10, 3)				# prints 0, 3, 6, 9
 range(-10, -100, -30)		# prints -10, -40, -70
@@ -37,3 +37,5 @@ sum(range(4))  # 0 + 1 + 2 + 3		# prints 6
 
 # maybe you are curious about how to get a list from a range. Here is the solution:
 list(range(4))				# prints [0, 1, 2, 3]
+
+print(list(range(1,30,2)))	# 1, 3, 5, 7, 9, ...

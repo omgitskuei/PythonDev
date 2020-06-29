@@ -104,3 +104,6 @@ print(aListOfSubjects[-1:1])	# prints 'Politics', 'Economics'.
  21  22  23  24  25  26  27
  28  29  30  31  32  33  34
  35  36  37  38  39  40  41
+
+ a=[1, 2, 3, 4]
+ print(2 in a)

@@ -1,4 +1,60 @@
-# Defining Functions
+# In[1]: Common predefined functions
+
+# Common functions;
+#formula is input(prompt), prompt can be "Type a word", "Enter digit", etc
+#input doesn't calculate, so entering 3+3 will give you 3+3
+a=input("Enter something, and I will print it out")
+print(a)
+
+#formula is eval(expression), eval calculates something, "Enter expression"
+#eval(3+3) will give 6.
+print(eval(input("Enter some math equation")))
+
+#.upper() converts string a into upper-case, and vice versa with .lower().
+a="Hello";
+print(a.upper());
+print(a.lower());
+print(a.capitalize());
+
+# .lstrip(chars) removes beginning characters that match any combination from param 'chars'
+print('wgafsxw.example.com'.lstrip('mfawsxpg.ecl'));	# prints 'om' because 'chars' doon't contain 'o'
+# .rstrip(chars) removes end characters
+print('www.google.gov/hr/application'.rstrip('plicaton/hr'));
+
+# checks first/last chars
+print('omg'.startswith('o'));
+print('omg'.endswith('o'));
+
+# validates a
+a=' sS'
+print(a)
+print("Words only? "+ str(a.isalpha()))
+print("Digits only? "+ str(a.isdigit()))
+print("Words OR Digits? "+ str(a.isalnum()))
+print("Is space "+ str(a.isspace()))
+print("Are all the alpha in lower case? "+ str(a.islower()))
+print("Is all the alpha in upper case? "+ str(a.isupper()))
+
+# .split(delimiter, maxSplits)
+# delimiter and maxSplits are both optional parameters
+# delimiter defaults to ' ' spaces, or None
+
+# maxSplits defaults to 'no limit' (same effect if given -1)
+# NOTE: maxSplits returns n+1 elements
+print(' 1  2   3  '.split());
+print('  1  2        3 '.split(None, 1));
+
+If sep is given, consecutive delimiters are not grouped together and are deemed to delimit empty strings (for example, '1,,2'.split(',') returns ['1', '', '2']). The sep argument may consist of multiple characters (for example, '1<>2<>3'.split('<>') returns ['1', '2', '3']). Splitting an empty string with a specified separator returns [''].
+
+If sep is not specified or is None, a different splitting algorithm is applied: runs of consecutive whitespace are regarded as a single separator, and the result will contain no empty strings at the start or end if the string has leading or trailing whitespace. Consequently, splitting an empty string or a string consisting of just whitespace with a None separator returns [].
+
+
+
+a='{word:fun,synonym:hilarious,related:joy} {word:sad,synonym:depressing,related:mood}'
+a.split()
+
+
+# In[2]: Defining Functions
 
 # The keyword def introduces a function definition
 # It must be followed by the function name and the parenthesized list of formal parameters. The statements that form the body of the function start at the next line, and must be indented.
