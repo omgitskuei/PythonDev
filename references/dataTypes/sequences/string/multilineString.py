@@ -28,3 +28,10 @@ print(total)
 total = ["Sun", "Mon",
         "Tues", "Wedn"]
 print(total)
+
+# You Don't necessarily have to print or store it. a long triple quote string can be used as //comments
+def triangleArea(base, height):
+	'''Calculates area with passed params'''
+	area = base * height / 2
+	return area
+triangleArea(3,5)

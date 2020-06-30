@@ -75,3 +75,8 @@ Usage: thingy [OPTIONS]\
 # The built-in function len() returns the length of a string:
 >>> s = 'supercalifragilisticexpialidocious'
 >>> len(s)		# prints 34
+
+# Multiplying Strings
+# what’s 10 multiplied by  a?
+print(10 *  'a') 			# prints aaaaaaaaaa
+# applications include standardized whitespace

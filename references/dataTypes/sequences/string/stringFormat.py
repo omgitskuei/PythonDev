@@ -1,11 +1,17 @@
 
 
 # In[1]: %-formatting
+
+Embedding Values in Strings
 #The %s takes the next argument (in this case "name") and prints as string, %d takes next numeric and prints it
 name = "John"
 age = 26
 nationality = 'Taiwan'
 print("%s is %d years old from %s"%(name, age, nationality))
+
+myscore = 1000
+message =  'I scored %s points'
+print(message % myscore) # prints I scored 1000 points
 
 
 # In[2]: str.format()
