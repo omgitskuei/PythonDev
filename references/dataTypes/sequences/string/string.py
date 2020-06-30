@@ -66,11 +66,7 @@ Usage: thingy [OPTIONS]\
 
 # NOTE: This only works with literals (does not work with variables)
 >>> prefix = 'Py'
->>> prefix 'thon'  # can't concatenate a variable and a string literal
-#   File "<stdin>", line 1
-#     prefix 'thon'
-#                 ^
-# SyntaxError: invalid syntax
+>>> prefix 'thon'  # can't concatenate a variable and a string literal, leads to SyntaxError: invalid syntax
 
 # The built-in function len() returns the length of a string:
 >>> s = 'supercalifragilisticexpialidocious'
@@ -80,3 +76,15 @@ Usage: thingy [OPTIONS]\
 # what’s 10 multiplied by  a?
 print(10 *  'a') 			# prints aaaaaaaaaa
 # applications include standardized whitespace
+spaces =  ' '  * 25
+print('%s 12 Butts Wynd'  % spaces)		# looks like its right-aligning text
+print('%s Twinklebottom Heath'  % spaces)
+print('%s West Snoring'  % spaces)
+print()
+print('Dear Sir')
+print()
+print('I wish to report that tiles are missing from the')
+print('outside toilet roof.')
+print()
+print('Regards')
+print('Malcolm Dithering')

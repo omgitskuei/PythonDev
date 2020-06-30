@@ -1,24 +1,3 @@
-
-Application;
-
-spaces =  ' '  * 25
-print('%s 12 Butts Wynd'  % spaces)
-print('%s Twinklebottom Heath'  % spaces)
-print('%s West Snoring'  % spaces)
-print()
-print()
-print('Dear Sir')
-print()
-print('I wish to report that tiles are missing from the') print('outside toilet roof.')
-print('I think it was bad wind the other night that blew them away.') print() print('Regards') print('Malcolm Dithering')
-
-
-And we can multiply a list by a number. For example, to multiply  list1  by 5, we write  list1 * 5: >>>  list1 = [1, 2] >>>  print(list1 * 5) [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
-
-
-On the other hand, division (/) and subtraction (-) give only errors,  as  in  these  examples: >>>  list1 / 20 Traceback (most recent call last):   File "<pyshell>", line 1, in <module>     list1 / 20 TypeError: unsupported operand type(s) for /: 'list' and 'int' >>>  list1 - 20 Traceback (most recent call last):   File "<pyshell>", line 1, in <module>     list1 - 20 TypeError: unsupported operand type(s) for -: 'list' and 'int'
-
-
 The main difference between a tuple and a list is that a tuple cannot change once you’ve created it. For example, if we try to replace the first value in the tuple  fibs  with the number 4 ( just as we replaced values in our  wizard_list), we get an error message: >>>  fibs[0] = 4 Traceback (most recent call last):   File "<pyshell>", line 1, in <module>     fibs[0] = 4 TypeError: 'tuple' object does not support item assignment
 
 games= [“kickball”]

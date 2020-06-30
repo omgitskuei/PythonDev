@@ -105,8 +105,20 @@ print(aListOfSubjects[-1:1])	# prints 'Politics', 'Economics'.
  28  29  30  31  32  33  34
  35  36  37  38  39  40  41
 
- a=[1, 2, 3, 4]
- print(2 in a)
+a=[1, 2, 3, 4]
+print(2 in a)				# prints True
+
+"""Arithmetic with lists"""
+# NOTE: no such thing as division and subtraction of lists, will give TypeError
+# Addition
+list1 = [5, 4, 3, 2, 1]
+list2 = [3, 9]
+list3 = list1 + list2		# NOTE: appends list2 elements at end of list1
+list3
+
+# Multiplying
+list1 = [1, 2]
+print(list1 * 5) 		# prints [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
 
 
 """Order of operation is paramount: See Below"""
@@ -134,58 +146,59 @@ list1 = [5, 4, 3, 2, 1, 5,5,5,5,5,5]
 list1.count(5)		# seven 5s
 
 
-"""Other methods"""
+"""Other useful methods"""
 list.append(x)
-Add an item to the end of the list. Equivalent to a[len(a):] = [x].
+# Add an item to the END of the list.
+# Equivalent to a[len(a):] = [x].
 
 list.extend(iterable)
-Extend the list by appending all the items from the iterable. Equivalent to a[len(a):] = iterable.
+# Extend the list by appending ALL the items from the iterable.
+# Equivalent to a[len(a):] = iterable.
 
 list.insert(i, x)
-Insert an item at a given position. The first argument is the index of the element before which to insert, so a.insert(0, x) inserts at the front of the list, and a.insert(len(a), x) is equivalent to a.append(x).
+# Insert an item at a given position.
+# The first argument is the index of the element before which to insert;
+# a.insert(0, x) inserts at the front
+# a.insert(len(a), x) inserts at the end, is equivalent to a.append(x).
 
 list.remove(x)
-Remove the first item from the list whose value is equal to x. It raises a ValueError if there is no such item.
+# Remove the first item from the list whose value is equal to x.
+# It raises a ValueError if there is no such item.
 
-list.pop([i])
-Remove the item at the given position in the list, and return it. If no index is specified, a.pop() removes and returns the last item in the list. (The square brackets around the i in the method signature denote that the parameter is optional, not that you should type square brackets at that position. You will see this notation frequently in the Python Library Reference.)
+list.pop([i])		# [indexOfItem] optional
+# Remove the item at the given position in the list, ...
+# ... AND RETURN IT.
+# If no index is specified, a.pop() removes and returns the LAST item.
+# NOTE: (The square brackets around the i in the method signature denote that the parameter is optional, not that you should type square brackets at that position. You will see this notation frequently in the Python Library Reference.)
 
 list.clear()
-Remove all items from the list. Equivalent to del a[:].
+# Remove all items from the list. Equivalent to del a[:].
 
 list.count(x)
-Return the number of times x appears in the list.
+# Return the number of times x appears in the list.
 
 list.sort(key=None, reverse=False)
-Sort the items of the list in place (the arguments can be used for sort customization, see sorted() for their explanation).
+# Sort the items of the list in place (the arguments can be used for *sort customization*, see sorted() for their explanation).
+WHAT IS SORT CUSTOMIZATION
 
 list.reverse()
-Reverse the elements of the list in place.
+# Reverse the elements of the list in place.
 
+fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+fruits.count('apple')			# returns 2
+fruits.count('tangerine')		# returns 0
+fruits.index('banana')			# returns 3
+# Find next banana starting a position 4
+fruits.index('banana', 4)		# returns 6
+fruits.reverse()				# doesn't return anything
+fruits
+fruits.append('grape')			# doesn't return anything
+fruits
+fruits.sort()					# elements are all strings, so alphabetically sorted ascending
+fruits
+fruits.pop()				# returns 'pear'
 
->>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
->>> fruits.count('apple')
-2
->>> fruits.count('tangerine')
-0
->>> fruits.index('banana')
-3
->>> fruits.index('banana', 4)  # Find next banana starting a position 4
-6
->>> fruits.reverse()
->>> fruits
-['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange']
->>> fruits.append('grape')
->>> fruits
-['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange', 'grape']
->>> fruits.sort()
->>> fruits
-['apple', 'apple', 'banana', 'banana', 'grape', 'kiwi', 'orange', 'pear']
->>> fruits.pop()
-'pear'
-
-not all data can be sorted or compared. For instance, [None, 'hello', 10] doesn’t sort because integers can’t be compared to strings and None can’t be compared to other types.
-
+# NOTE: not all data can be sorted. For instance, [None, 'hello', 10] doesn’t sort because integers can’t be compared to strings and None can’t be compared to other types.
 
 Using Lists as Stacks (Last-In-First-Out)
 To add an item to the top of the stack, use append().
