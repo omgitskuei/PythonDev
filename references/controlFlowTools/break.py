@@ -1,3 +1,12 @@
+# break
+# say the break was inside the loop condition, so true, would kick program out of loop, as if the loop condition was false
+for num in [31, 23, 12, 21]:
+    if num%2==0:
+        print("Data contains even")
+        break
+    else:
+        print("num=", num)
+
 
 # Loop statements may have an else clause; it is executed when the loop terminates through exhaustion of the iterable (with for) or when the condition becomes false (with while), but not when the loop is terminated by a break statement. This is exemplified by the following loop, which searches for prime numbers:
 for n in range(2, 10):			# n is 2 up to 9
@@ -7,7 +16,7 @@ for n in range(2, 10):			# n is 2 up to 9
 		print("n % x =", n % x)
 		if n % x == 0:
 			print(n, 'equals', x, '*', n//x)
-			print()
+			print('> > > break')
 			break				# ends looping-if early if not-prime already found
 	else:						# when (for x) loop used up all iterable, AND break didn't trigger
 		# loop fell through without finding a factor (n % x == 0 never triggered)

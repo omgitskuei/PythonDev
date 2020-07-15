@@ -22,3 +22,29 @@ active_users = {}
 for user, status in users.items():
     if status == 'active':
         active_users[user] = status
+
+
+
+# for loop
+# can take string, tuple, list
+# it operates expression for each item in sequence, and repeats going to the next item in sequence, UNTIL no item left
+# Below are 3 ways of writing a for loop that repeats 3 times
+for var in [1, 2, 3]:
+    print(var)
+
+for i in range(3):
+    print(i)
+
+list1=[1,2,3]
+for i in range(len(list1)):
+    print(i)
+
+
+
+# nested loops
+# nested for:
+for i in range(1, 5):			# range(1,5) means 1, 2, 3, 4
+    for j in range(1, 5):		# ... 5 is exclusive, so never printed
+        x=i*j
+        print(i, j, x)
+    print()						# total number times ran is 4*4

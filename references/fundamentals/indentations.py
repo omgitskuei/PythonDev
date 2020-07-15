@@ -5,13 +5,15 @@
 
 # Python uses indentation to indicate a block of code.
 
+# NOTE: 4 spaces per indent level, using space instead of tab is Preferrable
+
 # Example
 if 5 > 2:
   print("Five is greater than two!")
 
 # Python will give you an error if you skip the indentation
 
-# NOTE: 4 spaces per indent level, using space instead of tab is Preferrable
+
 # Only use tab if to remain consistent
 if True:
     print("True")

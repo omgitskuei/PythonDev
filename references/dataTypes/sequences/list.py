@@ -1,39 +1,72 @@
-# Creating Lists
+''' Lists '''
+# List is a sequence of mutable (retains ID) objects and uses [] square brackets, separated values via comma
+
+''' Difference between List and Tuple '''
+# Similarities
+# Both lists and tuples are sequence data types that can store a collection of items.
+# Each item stored in a list or a tuple can be of ANY data type.
+# And you can also access any item by its index.
+# Differences
+# lists are mutable whereas tuples are immutable.
+# Eg.
+aList = ["apples", "bananas"]
+print(id(aList))
+aList[0] = "berries"			# we change the value of aList[index#1]
+print(aList)							# prints ['berries', 'bananas', 'oranges']
+print(id(aList))				# the IDs/memory locations are the same
+aTuple = ("apples", "bananas")
+print(id(aTuple))
+# aTuple[0] = "berries"			# we change the value of aTuple[index#1] - it doesn't work
+# Traceback (most recent call last):
+#   File "", line 1, in
+# TypeError: 'tuple' object does not support item assignment
+aTuple = ("berries", "bananas")
+print(aTuple)					# this would give you aTuple = berries, bananas
+print(id(aTuple))				# BUT it's NOT modifying the tuple. NOTE: ID is different
+
+# NOTE: when we do b = a, we are not copying the list object from b to a
+a = [1, 3, 5, 7]
+b = a
+b[0] = -10
+a							# prints [-10, 3, 5, 7]
+# We are actually telling python that the two variables a and b should reference the same list object.
+
+''' Creating Lists '''
 # Lists are created by enclosing elements within [square] brackets and each item is separated by a comma:
 # Duplicates are allowed
 aListOfSubjects = ['Economics', 'Maths', 'English', 'Biology', 'Maths', 'Politics']
 
-# Retrieving Elements
+''' Retrieving Elements '''
 # To access elements of a list, we use Indexing.
-print(aListOfSubjects[0])	# prints 'Economics'
-print(aListOfSubjects[3]) 	# prints 'Biology'
+print(aListOfSubjects[0])				# prints 'Economics'
+print(aListOfSubjects[3]) 				# prints 'Biology'
 
 # But indexes can be negative too. Negative indexes return values from the end of the list.
-print(aListOfSubjects[-1])	# prints LAST element 'Politics'
+print(aListOfSubjects[-1])				# prints LAST element 'Politics'
 
 # Slicing - return a range of elements between two positions in the lists; List_name[start : end].
 # Note: end index is Exclusive
 
 # NOTE: indexing returns the item WHILE slicing returns a NEW list
 squares = [1, 4, 9, 16, 25]
->>> squares[0]
->>> squares[-1]	# returns item; 25
->>> squares[-3:]  		# returns new list; [9, 16, 25]
+squares[0]
+squares[-1]							# returns item; 25
+squares[-3:]  						# returns new list; [9, 16, 25]
 
 squares[:] # default indices together returns the whole list
 
 # Lists also support operations like concatenation:
-squares + [36, 49, 64]	# returns new list; [1, 4, 9, 16, 25, 36, 49, 64]
+squares + [36, 49, 64]					# returns new list; [1, 4, 9, 16, 25, 36, 49, 64]
 
 
 # NOTE: lists are a mutable type, i.e. can change their content
-cubes = [1, 8, 27, 65]  # something's wrong here
->>> 4 ** 3  # the cube of 4 is 64, not 65!
->>> cubes[3] = 64  # replace the wrong value
->>> cubes				# prints [1, 8, 27, 64]
+cubes = [1, 8, 27, 65]
+4 ** 3  							# the cube of 4 is 64, not 65!
+cubes[3] = 64  						# replace the wrong value
+cubes								# prints [1, 8, 27, 64]
 
 # You can also add new items at the end of the list, by using the append() method
->>> cubes.append(125)  # add the cube of 5
+cubes.append(125)  # add the cube of 5
 cubes
 cubes.append(6 ** 3)  # and the cube of 6
 cubes
@@ -41,31 +74,31 @@ cubes
 
 # Assignment to slices is also possible,
 # NOTE: this can change the size of the list/clear it:
->>> letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
->>> letters				# prints ['a', 'b', 'c', 'd', 'e', 'f', 'g']
->>> # replace some values
->>> letters[2:5] = ['C', 'D', 'E']
->>> letters 			# prints ['a', 'b', 'C', 'D', 'E', 'f', 'g']
->>> # now remove them
->>> letters[2:5] = []
->>> letters				# prints ['a', 'b', 'f', 'g']
->>> # clear the list by replacing all the elements with an empty list
->>> letters[:] = []
->>> letters				#prints "" (nothing)
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+letters				# prints ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+# replace some values
+letters[2:5] = ['C', 'D', 'E']
+letters 			# prints ['a', 'b', 'C', 'D', 'E', 'f', 'g']
+# now remove them
+letters[2:5] = []
+letters				# prints ['a', 'b', 'f', 'g']
+# clear the list by replacing all the elements with an empty list
+letters[:] = []
+letters				#prints "" (nothing)
 
 
 # NOTE: Built-in len() function applies to lists
->>> letters = ['a', 'b', 'c', 'd']
->>> len(letters)		# prints 4
+letters = ['a', 'b', 'c', 'd']
+len(letters)		# prints 4
 
 
 # NOTE: It is possible to nest lists (create lists containing other lists), for example:
->>> a = ['a', 'b', 'c']
->>> n = [1, 2, 3]
->>> x = [a, n]
->>> x 					# prints [['a', 'b', 'c'], [1, 2, 3]]
->>> x[0]				# prints ['a', 'b', 'c']
->>> x[0][1]				# prints 'b'
+a = ['a', 'b', 'c']
+n = [1, 2, 3]
+x = [a, n]
+x 					# prints [['a', 'b', 'c'], [1, 2, 3]]
+x[0]				# prints ['a', 'b', 'c']
+x[0][1]				# prints 'b'
 
 print(aListOfSubjects[-1:1])	# prints 'Politics', 'Economics'.
 
@@ -73,25 +106,22 @@ print(aListOfSubjects[-1:1])	# prints 'Politics', 'Economics'.
 # NOTE: Slice indices use defaults if omitted
 # an omitted first index defaults to zero
 # an omitted second index defaults to the size of the string being sliced.
->>> word = 'Python'
+word = 'Python'
 
-
-# NOTE: This means that s[:i] + s[i:] is always equal to s:
->>> word[:2] + word[2:]
-'Python'
->>> word[:4] + word[4:]
-'Python'
-^ ??????????????????????????????????????????????????????
+# NOTE: This means that word[:i] + word[i:] is always equal to word:
+print(word[:2] + word[2:])			# prints 'Python'
+print(word[:4] + word[4:])			# prints 'Python'
+print(word[1:1])					# prints ''
 
 # Attempting to use an index that is too large will result in an error:
->>> word[42]  # the word only has 6 characters
+word[42]  # the word only has 6 characters
 # Traceback (most recent call last):
 #   File "<stdin>", line 1, in <module>
 # IndexError: string index out of range
 
 
 # NOTE: However, out of range slice indexes are handled gracefully when used for slicing:
->>> word[4:42]
+word[4:42]
 'on'
 # Consider this table of indices - out-of-bounds index wraps around word;
  +---+---+---+---+---+---+
@@ -108,7 +138,7 @@ print(aListOfSubjects[-1:1])	# prints 'Politics', 'Economics'.
 a=[1, 2, 3, 4]
 print(2 in a)				# prints True
 
-"""Arithmetic with lists"""
+""" Arithmetic with lists """
 # NOTE: no such thing as division and subtraction of lists, will give TypeError
 # Addition
 list1 = [5, 4, 3, 2, 1]
@@ -121,7 +151,7 @@ list1 = [1, 2]
 print(list1 * 5) 		# prints [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
 
 
-"""Order of operation is paramount: See Below"""
+""" Order of operation is paramount: """
 list1 = [5, 4, 3, 2, 1]
 list2 = list1
 list1 += [1, 2, 3, 4]		# NOTE: += means plus THEN equals
@@ -140,13 +170,55 @@ list2 = list1					# NOTE: then equals
 print(list1)
 print(list2)				# both are same as above
 
+# Lists can contain int, float, string, etc. Lists can also contain other lists - more on that below.
+Ingredients = [1, "potato", 3, "eggs", 2, "chicken breasts", 20.50, "grams of salt"];
+print("Ingredients", Ingredients)
+CurrentPlayers = ["Bob", "Dylan"]
+#Here we add list NewPlayers to the end of list CurrentPlayers with list1.extend(obj)
+#There's also list1.append(obj) as well
+NewPlayers = ["Ashley"]
+CurrentPlayers.extend(NewPlayers); print("Current", CurrentPlayers)
+CurrentPlayers.append(NewPlayers); print("Current", CurrentPlayers)
+# NOTE: .append(x) will add the LIST itself, while .extend(x) adds ELEMENTS of the LIST
 
-"""Count matches"""
+# Lists have index features - remember, index starts at 0, and (X:Y) Y is EXCLUSIVE - this is why only "Dylan" is printed
+print(CurrentPlayers[1:2])
+# Remember that not specifying (X:Y) Y means it'll carry on til the end.
+print(CurrentPlayers[1:])
+# Also, (X:Y:Z) Z is used if you want to periodically skip indexes
+print("Ingredients w/o Numbers", Ingredients[1::2]) #Starts on the 2nd value, goes to end, and skips every other value (removes nums)
+# You can change a slice of a list
+CurrentPlayers[0]="Bobby" #In the example, I'm over-riding Bobby over Bob, see how the changes 'stick'.
+print("Updated Current", CurrentPlayers)
+# Lists can contain other lists (on top of int, float, strings)
+AllPlayers = [NewPlayers, 1201, CurrentPlayers, 250.0, "Guest"]
+print("All", AllPlayers)
+# The lists contained can be called in entirity or sliced
+print("Just Current from All", AllPlayers[2])
+print("Just 1st of Current from All", AllPlayers[2][0]) #Note AllPlayers[index for AllPlayers][index for CurrentPlayers]
+# Can use negative indexes to count down from the end
+print("2nd to last of Current", CurrentPlayers[-2])
+print("Last of Current", CurrentPlayers[-1])
+# len() is a function that counts how many variables there are in the (whatever you passed into the brackets)
+print(len(CurrentPlayers)) #should give you 3; Bobby, Dylan, Ashley.
+# You can 'add' lists to combine them into a single list - note that values are NOT sorted
+print([1, 2, 3] + [2, 3, 4])
+# You can 'multiply' lists to repeat the same values - note you cant 'divide' the list, that just gives an error
+print("3* Current", CurrentPlayers * 2)
+
+# Remember; Membership Operators; tests if value is in data sequence, True or False
+print(2 in [1, 2, 3, 4])  #True
+
+# For example; a list of values where each index is squared, and the list has goes from 0*0, 1*1, etc, up to 9*9
+S = [x**2 for x in range(10)]
+print(S)
+
+""" Count matches """
 list1 = [5, 4, 3, 2, 1, 5,5,5,5,5,5]
 list1.count(5)		# seven 5s
 
 
-"""Other useful methods"""
+""" Other useful methods """
 list.append(x)
 # Add an item to the END of the list.
 # Equivalent to a[len(a):] = [x].
@@ -204,20 +276,20 @@ Using Lists as Stacks (Last-In-First-Out)
 To add an item to the top of the stack, use append().
 To retrieve an item from the top of the stack, use pop() without an explicit index.
 
->>> stack = [3, 4, 5]
->>> stack.append(6)
->>> stack.append(7)
->>> stack
+stack = [3, 4, 5]
+stack.append(6)
+stack.append(7)
+stack
 [3, 4, 5, 6, 7]
->>> stack.pop()
+stack.pop()
 7
->>> stack
+stack
 [3, 4, 5, 6]
->>> stack.pop()
+stack.pop()
 6
->>> stack.pop()
+stack.pop()
 5
->>> stack
+stack
 [3, 4]
 
 
@@ -225,15 +297,15 @@ Using Lists as Queues (First-In-First-Out)
 You can but lists aren't efficient for this.
 While appends and pops from the end of list are fast, doing inserts or pops from the beginning of a list is slow (because all of the other elements have to be shifted by one).
 To implement a queue, use collections.deque which was designed to have fast appends and pops from both ends. For example:
->>> from collections import deque
->>> queue = deque(["Eric", "John", "Michael"])
->>> queue.append("Terry")           # Terry arrives
->>> queue.append("Graham")          # Graham arrives
->>> queue.popleft()                 # The first to arrive now leaves
+from collections import deque
+queue = deque(["Eric", "John", "Michael"])
+queue.append("Terry")           # Terry arrives
+queue.append("Graham")          # Graham arrives
+queue.popleft()                 # The first to arrive now leaves
 'Eric'
->>> queue.popleft()                 # The second to arrive now leaves
+queue.popleft()                 # The second to arrive now leaves
 'John'
->>> queue                           # Remaining queue in order of arrival
+queue                           # Remaining queue in order of arrival
 deque(['Michael', 'Terry', 'Graham'])
 
 
@@ -272,24 +344,24 @@ matrix = [
 The following list comprehension will transpose rows and columns
 [[row[i] for row in matrix] for i in range(4)]				# prints [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 this example is equivalent to:
->>> transposed = []
->>> for i in range(4):
+transposed = []
+for i in range(4):
 ...     transposed.append([row[i] for row in matrix])
 ...
->>> transposed
+transposed
 [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 which, in turn, is the same as:
 
 >>>
->>> transposed = []
->>> for i in range(4):
+transposed = []
+for i in range(4):
 ...     # the following 3 lines implement the nested listcomp
 ...     transposed_row = []
 ...     for row in matrix:
 ...         transposed_row.append(row[i])
 ...     transposed.append(transposed_row)
 ...
->>> transposed
+transposed
 [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 
 
@@ -298,13 +370,13 @@ The del statement
 There is a way to remove an item from a list given its index instead of its value: the del statement. This differs from the pop() method which returns a value. The del statement can also be used to remove slices from a list or clear the entire list (which we did earlier by assignment of an empty list to the slice). For example:
 
 >>>
->>> a = [-1, 1, 66.25, 333, 333, 1234.5]
->>> del a[0]
->>> a
+a = [-1, 1, 66.25, 333, 333, 1234.5]
+del a[0]
+a
 [1, 66.25, 333, 333, 1234.5]
->>> del a[2:4]
->>> a
+del a[2:4]
+a
 [1, 66.25, 1234.5]
->>> del a[:]
->>> a
+del a[:]
+a
 []

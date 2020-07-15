@@ -1,13 +1,26 @@
 # Strings count as sequence type because it can be indexed and sliced
 
-# NOTE: While they're sequences, Strings in Python are immutable/cannot be changed!!!
+""" Strings are immutable """
+# NOTE: While they're sequences, Strings in Python are immutable/cannot be changed*
 word = 'Python'
 word[0] = 'J'		# executing this line will lead to TypeError;
 # TypeError: 'str' object does not support item assignment
 
+# *Immutable means the Type string (a and b) doesn't retain its ID (aka memory location) after it's given new values
+a=1
+print(id(a))
+a=2						# what's happening here isn't changing a's value 1 to 2 ...
+print(id(a))			# ... more like creating a new a with new value 2 that overrides the previous a
+
+a=1						# NOTE: how the same 'number value' 1 has the same ID as
+b=1						# each other regardless of variable names being different (a and b)
+print(id(a))
+print(id(b))
+print(a is b)			# NOTE: the 'is' logic compares IDs
+
 # if you need a new string, just make one
 word = 'Python';
-word = 'J' + word[1:];		# prints 'Jython'
+word = 'J' + word[1:];		# prints 'Jython', string word is overriden
 print(word);
 
 # String variables can be declared either by using single or double quotes:
@@ -88,3 +101,12 @@ print('outside toilet roof.')
 print()
 print('Regards')
 print('Malcolm Dithering')
+
+# Applications for .find(""); extracting substring
+data="From:User Lee (user@company.com) Sat Jan 5 09:14:16 2016"
+begIndex=data.find("(")
+endIndex=data.find(")")
+print(begIndex)
+print(endIndex)
+email=data[begIndex+1:endIndex]
+print(email)

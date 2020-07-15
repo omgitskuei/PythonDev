@@ -1,6 +1,3 @@
-# In[198]:
-
-
 #Membership Operators
 #in tests if value is in data sequence, True, else False
 a=[1, 2, 3, 4]
