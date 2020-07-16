@@ -6,3 +6,20 @@
 #Dictionary is a collection which is unordered, changeable and indexed. No duplicate members.
 
 #When choosing a collection type, it is useful to understand the properties of that type. Choosing the right type for a particular data set could mean retention of meaning, and, it could mean an increase in efficiency or security.
+
+"""List"""
+aList = [1,2,3,3]
+
+"""Tuple"""
+aTuple = (1,2,3,3)
+
+"""Set"""
+aSet = {1,2,3,3}
+
+aList, aSet, aTuple
+
+"""Convert from String to Sequence of chars"""
+aString = 'quux'
+list(s)				# returns ['q', 'u', 'u', 'x']
+tuple(s)			# # returns ('q', 'u', 'u', 'x')
+set(s)				# returns {'x', 'u', 'q'} (duplicate removed)

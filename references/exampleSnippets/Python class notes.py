@@ -77,12 +77,6 @@ set('foo')
 x = set(['foo', 'bar', 'baz', 'foo', 'qux'])
 x
 
-s = 'quux'
-
-list(s)
-['q', 'u', 'u', 'x']
-set(s)
-{'x', 'u', 'q'}
 
 #Alternately, a set can be defined with curly braces ({}):
 
@@ -112,11 +106,6 @@ An empty set is falsy in Boolean context:
 x = set()
 bool(x)
 False
-
-
-
-
-# In[45]:
 
 
 #Read/Writing files

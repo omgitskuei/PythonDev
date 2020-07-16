@@ -1,4 +1,4 @@
-aSet = set(("apple", "tuna", "sandwich"))
+aSet = set("apple", "tuna", "sandwich")
 # aSet[0] = "berries" - would cause error
 # print(aSet+aSet) set does not support + or * operants
 
