@@ -47,6 +47,23 @@ x = str("s1") # x will be 's1'
 y = str(2)    # y will be '2'
 z = str(3.0)  # z will be '3.0'
 
+# More examples of typecasting
+age = '10'
+converted_age = int(age)
+age = 10
+converted_age = str(age)
+age = '10.5'
+converted_age = float(age)
+print(converted_age) 10.5
+
+# Example of typecasting with errors
+age = '10.5'
+converted_age = int(age)
+'''Traceback (most recent call last):
+    File "<pyshell#35>", line 1, in <module>
+    converted_age = int(age)
+    ValueError: invalid literal for int() with base 10: '10.5' '''
+
 # NOTE: Multiple assignment can be different TYPES
 # fyi; a, b, c = "Kuei", 26, "Taiwan".
 a, b, c, d, e="hello", "my", "age", "is", 2
