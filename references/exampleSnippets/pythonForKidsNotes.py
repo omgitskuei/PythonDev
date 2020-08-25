@@ -42,7 +42,7 @@ Python’s  built-in functions  don’t need to be imported first
 The  abs  function returns the  absolute  value  of a number, which is the value of a number without its sign.
 >>>  print(abs(10))
 10
->>>  print(abs(-10))
+print(abs(-10))
 10
 
 >>>  steps = -3
