@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['references\\exampleModules\\usingTurtle.py']
+recent_files = ['references\\exampleModules\\usingCopy.py', 'references\\exampleModules\\usingRandom.py', 'references\\exampleModules\\usingSys.py', 'references\\exampleSnippets\\pythonForKidsNotes.py', 'references\\exampleModules\\usingKeyword.py']
 
