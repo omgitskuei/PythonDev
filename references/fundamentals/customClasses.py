@@ -28,3 +28,14 @@ kuei.move()
 # why use classes and objects at all, when you could just write normal functions?
 
 # Using objects and classes, we can tell Python exactly which giraffe we’re talking about when we want to run the move  function.
+
+"""
+Using  named  Parameters
+
+Sometimes functions have a lot of parameters, and we may not always need
+to provide a value for every parameter. Named parameters are a way we can
+provide values for only the parameters that we need to give values.
+"""
+def person(width, height):
+    print('I am %s feet wide, %s feet high' % (width, height))
+# prints person(4, 3) I am 4 feet wide, 3 feet high
