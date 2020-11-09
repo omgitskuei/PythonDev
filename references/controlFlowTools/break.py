@@ -1,4 +1,12 @@
-# break
+# -*- coding: utf-8 -*-
+"""
+Program name: Notes on break in Python.
+
+Summary: Notes on syntax, usage, and example snippets of breaks
+Created on: Sat Oct 24 11:37:09 2020
+@author: omgitskuei (Github)
+"""
+
 # say the break was inside the loop condition, so true, would kick program out of loop, as if the loop condition was false
 for num in [31, 23, 12, 21]:
     if num%2==0:

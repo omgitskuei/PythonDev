@@ -1,9 +1,23 @@
-'''Default Argument values'''
+# -*- coding: utf-8 -*-
+"""
+Program name: Notes on Default Argument values in Python.
 
-# This function takes three arguments, two of which have default values
-def ask_ok(prompt, retries=4, reminder='Please try again!'):
+Summary: Notes on syntax, usage, and example snippets of default arguments
+Created on: Sat Oct 24 11:37:09 2020
+@author: omgitskuei (Github)
+"""
+
+def prompt_for_yes_no(promptMsg, retries=4, reminder='Please try again!'):
+    """Prompt user for yes or no - retry if user input is not yes or no.
+
+    Keyword Arguments:
+    -----------------
+    promptMsg -- a String, what message to print and show user during prompt.
+    retries -- how many numbers of retries does the user get (default 4)
+    reminder -- print msg if input isn't yes or no (default Please try again!)
+    """
     while True:
-        ok = input(prompt)
+        ok = input(promptMsg)
         if ok in ('y', 'ye', 'yes'):
             return True
         if ok in ('n', 'no', 'nop', 'nope'):
@@ -15,21 +29,23 @@ def ask_ok(prompt, retries=4, reminder='Please try again!'):
 
 # This function can be called in several ways:
 # 	giving only the mandatory argument:
-ask_ok('Do you really want to quit?')
+prompt_for_yes_no('Do you really want to quit?')
 #	giving one of the optional arguments:
-ask_ok('OK to overwrite the file?', 2)
+prompt_for_yes_no('OK to overwrite the file?', 2)
 #	or even giving all arguments:
-ask_ok('OK to overwrite the file?', 2, 'Come on, only yes or no!')
+prompt_for_yes_no('OK to overwrite the file?', 2, 'Come on, only yes or no!')
 
 
-'''the default value is evaluated only once'''
+
 
 # NOTE: ^ , at the point of function definition in the defining scope
 i = 5
-def f(arg=i):
+def test_arg_value(arg=i):  # here, arg value is set to i
+    """Notice default value is evaluated only once."""
+    i = 6                       # i is changed but arg isn't set again
+    args = 6
     print(arg)
-i = 6
-f()				# prints 5, NOT 6
+test_arg_value()				# prints 5, NOT 6
 
 
 '''using mutables as default values'''
