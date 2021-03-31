@@ -54,7 +54,7 @@ age = 10
 converted_age = str(age)
 age = '10.5'
 converted_age = float(age)
-print(converted_age) 10.5
+print(converted_age) # 10.5
 
 # Example of typecasting with errors
 age = '10.5'
@@ -68,3 +68,4 @@ converted_age = int(age)
 # fyi; a, b, c = "Kuei", 26, "Taiwan".
 a, b, c, d, e="hello", "my", "age", "is", 2
 print(a, b, c, d, e)
+
