@@ -65,17 +65,25 @@ def collatz(number):
 # ****************************************************************************
 # *                                  Main                                    *
 # ****************************************************************************
+validInput = False
+
+# number = 3
+# validInput = True
 
 # Get user input for the initial number in the sequence
-try:
-    number = int(input('Enter number:'))
-except ValueError:
-    print('Wow, invalid input!')
+for i in range(0, 3, 1):
+    try:
+        number = int(input('Enter number:'))
+        validInput = True
+        break
+    except ValueError:
+        print('Wow, invalid input!')
 
-# Prints the initial number
-print(number)
-
-# Calculate the sequence until it ends at 1
-while(number != 1):
-    number = collatz(number=number)
+if(validInput):
+    # Prints the initial number
     print(number)
+
+    # Calculate the sequence until it ends at 1
+    while(number != 1):
+        number = collatz(number=number)
+        print(number)
