@@ -1,6 +1,5 @@
-'''
-A Note on assignment and passing arguments to methods
-'''
+"""A Note on assignment and passing arguments to methods."""
+
 
 # NOTE: The following snippet shows that variable 'arg' is NOT altered by method 'square'
 
@@ -8,6 +7,7 @@ from sys import getrefcount
 
 
 def main():
+    """Show that arg is not modified."""
     arg = 4
     print(f"Initial ID of arg =         {id(arg)}")
     square(arg)                                      # fails to alter arg
@@ -17,9 +17,7 @@ def main():
 
 
 def square(n):
-    '''
-    Squares the argument n
-    '''
+    """Squares the argument n."""
     print(f"    Initial ID of n =       {id(n)}")
     n *= n
     print(f"    Post-changes ID of n =  {id(n)}")   # id is different here

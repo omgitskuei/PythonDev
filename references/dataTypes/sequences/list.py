@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Lists
-A list is a valu containing multiple values in an << ordered >> sequence.
+A list is a value containing multiple values in an << ordered >> sequence.
 
 Values inside the list are comma-delimited.
 A list begins with an opening square bracket, [.

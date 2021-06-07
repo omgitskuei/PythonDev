@@ -1,6 +1,8 @@
 ''' Syntax '''
 # A tuple consists of a number of values separated by commas, for instance:
 t = 12345, 54321, 'hello!'
+# or
+t = (12345, 54321, 'hello!')
 print(t[0])			# prints 12345
 print(t)				# prints (12345, 54321, 'hello!')
 # Tuples may be nested:

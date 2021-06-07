@@ -20,6 +20,15 @@ aList, aSet, aTuple
 
 """Convert from String to Sequence of chars"""
 aString = 'quux'
-list(s)				# returns ['q', 'u', 'u', 'x']
-tuple(s)			# # returns ('q', 'u', 'u', 'x')
-set(s)				# returns {'x', 'u', 'q'} (duplicate removed)
+
+aList = list(aString)
+# returns ['q', 'u', 'u', 'x']
+print(aList)
+
+aTuple = tuple(aString)
+# returns ('q', 'u', 'u', 'x')
+print(aList)
+
+aSet = set(aString)
+# returns {'x', 'u', 'q'} (duplicate removed)
+print(aSet)
