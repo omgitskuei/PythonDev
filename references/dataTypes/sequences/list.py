@@ -12,6 +12,9 @@ emptyList = []
 
 There are important differences between list and tuple - see below*
 """
+
+
+
 # ****************************************************************************
 # *                          C.R.U.D.                                        *
 # ****************************************************************************
@@ -81,6 +84,14 @@ print("Ingredients", Ingredients)
 # Starts on the 2nd value, goes to end, skips every other value (removes nums)
 print("Ingredients w/o Numbers", Ingredients[1::2])
 
+# True
+'howdy' in ['hello', 'hi', 'howdy', 'heyas']
+# False
+'cat' in ['hello', 'hi', 'howdy', 'heyas']
+# False
+'howdy' not in spam
+
+
 """
 Updating value(s) of a list
 
@@ -98,7 +109,24 @@ cubes
 """
 Deleting values from a list
 """
+aList = [1, 2, 3]
+aList.remove(3)
+# [1, 2]
+print(aList)
+del aList[1]
+# [1]
+print(aList)
 
+aList.clear()
+# []
+print(aList)
+
+"""
+Iterating
+"""
+# 0, 1, 2, 3, 4
+for i in range(5):
+    print(i)
 
 # ****************************************************************************
 # *                          Useful Methods                                  *
@@ -165,6 +193,8 @@ print("aList.append(aString) =>", aList)
 # COMMON MISTAKE, Extend() takes any sequence
 # meaning you could extend(aString) with perhaps surprising results
 aList = ["Bob, Dylan"]
+aString = 'Kat'
+# ['Bob, Dylan', 'K', 'a', 't']
 aList.extend(aString)
 # ^ Same as aList[len(aList):] = aString
 print("aList.extend(aString) =>", aList)
@@ -193,30 +223,35 @@ print(letters)
 letters = ['a', 'z', 'A', 'Z']
 letters.sort(reverse=True)
 # ['z', 'a', 'Z', 'A']
-print('.sort(reverse=True) =>', letters)
+print('list.sort(reverse=True) =>', letters)
 
 # Sort in reverse order AND ignoring capital cases
 letters = ['a', 'z', 'A', 'Z']
 letters.sort(key=str.upper, reverse=True)
 # ['z', 'Z', 'a', 'A']
-print('.sort(key=str.upper, reverse=True) =>', letters)
+print('list.sort(key=str.upper, reverse=True) =>', letters)
 
-# Works with numbers
-a = [4.1, 3.4, 2.1, 1.0, -2.1]
-a.reverse()
-# [-2.1, 1.0, 2.1, 3.4, 4.1]
-print(a)
-
-#  Strange behavior when mixing int and float
-a = [1, 3, 4, -4, 4.3]
-a.reverse()
-# [4.3, -4, 4, 3, 1]
+a = [4, 4.12, 4.5, 4.0000]
+a = sorted(a, key=float)
+# [4, 4.0, 4.12, 4.5]
 print(a)
 
 
+"""
+Reverse
+Remove all items from the list.
+"""
+# Works with mixed types
+a = [4.1, "3.4", 2.1, 1, -2.1]
+a.reverse()
+# [-2.1, 1, 2.1, '3.4', 4.1]
+print(a)
 
-list.reverse()
-# Reverse the elements of the list in place.
+a = [1, 3, 4, 5, -4, 4.3]
+a.reverse()
+# [4.3, -4, 5, 4, 3, 1]
+print(a)
+
 
 """
 Clear
@@ -265,8 +300,8 @@ It raises a ValueError if there is no such item.
 aList = [1, 3]
 aList.remove(3)
 print('after removing 3, aList =', aList)
-# Throws ValueError
 try:
+    # Throws ValueError
     aList.remove(4)
 except ValueError as ve:
     print('A ValueError was thrown!', ve)
@@ -308,20 +343,20 @@ Note: end index is Exclusive
 word = 'Python'
 
 # NOTE: This means that word[:i] + word[i:] is always equal to word:
-# prints 'Python'
+# 'Python'
 print(word[:2] + word[2:])
-# prints 'Python'
+# 'Python'
 print(word[:4] + word[4:])
-# prints '', because end index is exclusive
+
+# prints '', because end index is exclusive, so the 2 index have no overlap
 print(word[1:1])
 
-# Attempting to use an index that is too large will result in an IndexError:
+# list[index] where index is too large will result in an IndexError:
 try:
     # the word only has 6 characters
     word[42]
 except IndexError as ie:
     print('IndexError is thrown!', ie)
-
 
 # However, slice indexes are handled "gracefully" if out of bounds
 # returns 'hon'
@@ -342,7 +377,7 @@ word[-6:3]
 # start index also rolls over like this table shows if it becomes negative
 
 allSquares = [1, 4, 9, 16, 25]
-# return new list; [9, 16, 25]
+# return new list; [9, 16, 25], -3 means 'last 3'
 sublist = allSquares[-3:]
 # no start/end indices provided returns the whole list
 sameList = allSquares[:]
@@ -364,6 +399,8 @@ letters				# prints ['a', 'b', 'f', 'g']
 # clear the list by replacing all the elements with an empty list
 letters[:] = []
 letters				# prints "" (nothing)
+
+
 
 # ****************************************************************************
 # *                          Difference between List and Tuple               *
@@ -397,44 +434,58 @@ print(aTuple)					# (pear, bananas) - overwritten, not modified
 print(id(aTuple))				# NOTE: ID is different
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Note you cant 'divide' the list, that just gives an error
-
-""" Arithmetic with lists """
-# NOTE: no such thing as division and subtraction of lists, will give TypeError
-# Addition
-list1 = [5, 4, 3, 2, 1]
+# ****************************************************************************
+# *                          Arithmetic with lists                           *
+# *   # Note you cant 'subtract' OR 'divide' lists, gives an error           *
+# ****************************************************************************
+"""
+Addition
+"""
+list1 = ["car", "bus", "bike"]
 list2 = [3, 9]
 # NOTE: APPENDS list2 items after list1 items
 list3 = list1 + list2
-list3
+# ['car', 'bus', 'bike', 3, 9]
+print(list3)
 
-# Multiplying
+"""
+Multiplying
+"""
 list1 = [1, 2]
-print(list1 * 5) 		# prints [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+# [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+print(list1 * 5)
+
+list1 = ["dog", "cat"]
+# ['dog', 'cat', 'dog', 'cat', 'dog', 'cat']
+print(list1 * 3)
+
+try:
+    list1 = [1, 3]
+    list2 = ["ham", "pam"]
+    print(list1 * list2)
+except TypeError as error:
+    # TypeError: can't multiply sequence by non-int of type 'list'
+    print(error)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 """ Order of operation is paramount: """
