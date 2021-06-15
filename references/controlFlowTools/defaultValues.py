@@ -57,15 +57,15 @@ test_arg_value()				# prints 5, NOT 6
 
 # NOTE: Because the default is only evaluated ONCE on Define, a default value could end up
 # ... calling the same mutable object across subsequent calls
-def f(a, L=[]):		# this function's L argument is SET as an empty list ONLY ONCE
-    L.append(a)
-    return L
+def stringToList(aString, aList=[]):		# this function's L argument is SET as an empty list ONLY ONCE
+    aList.append(aString)
+    return aList
 
 
 # Even though it says the default value is an Empty list, python 'remembers' the list and its elements
-print(f(1))			# prints [1]
-print(f(2))			# prints [1, 2]
-print(f(3))			# prints [1, 2, 3]
+print(stringToList(1))			# prints [1]
+print(stringToList(2))			# prints [1, 2]
+print(stringToList(3))			# prints [1, 2, 3]
 
 
 # Below is a way to 'reset' the default value to an empty list, using immutable None
