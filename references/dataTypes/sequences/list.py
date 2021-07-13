@@ -14,7 +14,6 @@ There are important differences between list and tuple - see below*
 """
 
 
-
 # ****************************************************************************
 # *                          C.R.U.D.                                        *
 # ****************************************************************************
@@ -27,7 +26,7 @@ NOTE:
 
 """
 # there's a duplicate
-subjects = ['Econ', 'Math', 'Math', 'Bio', 'Engl', 'Poli']
+classes = ['Econ', 'Math', 'Math']
 
 # contains mix of string and int
 unsortableList = [1, 2, 'a']
@@ -37,19 +36,19 @@ a = ['a', 'b', 'c']
 n = [1, 2, 3]
 x = [a, n]
 # prints [['a', 'b', 'c'], [1, 2, 3]]
-x
+print(x)
 # prints ['a', 'b', 'c']
-x[0]
+print(x[0])
 # prints 'b'
-x[0][1]
+print(x[0][1])
 
 spam = [['cat', 'bat'], [10, 20, 30, 40, 50]]
 # ['cat', 'bat']
-spam[0]
+print(spam[0])
 # 'bat'
-spam[0][1]
+print(spam[0][1])
 # 50
-spam[1][4]
+print(spam[1][4])
 
 # NOTE: We are actually telling python that the two variables should
 # reference the same list object - perhaps leading to unintended behaviors
@@ -57,6 +56,12 @@ aList = [1, 3, 5, 7]
 notANewList = aList             # NOT copying the list values to new list!!!
 notANewList[0] = -10            # changes to 2nd list affects 1st list
 print(aList)                    # [-10, 3, 5, 7]
+
+# Eg; a list of values where each index is squared, and the list has goes from
+# 0*0, 1*1, etc, up to 9*9
+# [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+S = [x**2 for x in range(10)]
+print(S)
 
 
 """
@@ -78,18 +83,75 @@ a = [1, 2, 3, 4]
 # prints True
 print(2 in a)
 
-# Also, [X:Y:Z] Z is used if you want to periodically skip indexes
 Ingredients = [1, "potato", 3, "eggs", 2, "chicken", 20.50, "salt"]
+# Ingredients [1, 'potato', 3, 'eggs', 2, 'chicken', 20.5, 'salt']
 print("Ingredients", Ingredients)
-# Starts on the 2nd value, goes to end, skips every other value (removes nums)
+# Some ingredients [1, 'potato', 3, 'eggs']
+print("Some ingredients", Ingredients[0:4])
+# Also, [Start:End:Step] Step is used if you want to periodically skip indexes
+# Ingredients w/o Numbers ['potato', 'eggs', 'chicken', 'salt']
 print("Ingredients w/o Numbers", Ingredients[1::2])
+# Ingredients w/o Numbers ['potato', 'eggs', 'chicken']
+print("Some Ingredients w/o Numbers", Ingredients[1:6:2])
+
+# Membership Operator
+# Membership Operators; tests if value is in data sequence, returns True/False
+# True
+print(2 in [1, 2, 3, 4])
 
 # True
-'howdy' in ['hello', 'hi', 'howdy', 'heyas']
+print('howdy' in ['hello', 'hi', 'howdy', 'hey'])
 # False
-'cat' in ['hello', 'hi', 'howdy', 'heyas']
+print('cat' in ['hello', 'hi', 'howdy', 'hey'])
 # False
-'howdy' not in spam
+print('howdy' not in spam)
+
+# Using Lists as Stacks (Last-In-First-Out) and Queues (First-In-First-Out)
+# To add and retrieve from the end, use list.append() and list.pop()
+stack = [3, 4, 5]
+stack.append(6)
+stack.append(7)
+# stack=[3, 4, 5, 6, 7]
+print(f'{stack=}')
+# 7
+print(stack.pop())
+# stack=[3, 4, 5, 6]
+print(f'{stack=}')
+# 6
+print(stack.pop())
+# stack=[3, 4, 5]
+print(f'{stack=}')
+# 5
+print(stack.pop())
+# stack=[3, 4]
+print(f'{stack=}')
+
+# To add and retrieve from the beginning, using lists aren't efficient (slow)
+# and incur O(n) memory movement costs for pop(0) and insert(0, v) operations
+# because each operation changes both the size and position of the underlying
+# data representation by shifting all items by 1 each time.
+# To implement a queue (First-In-First-Out), use collections.deque.
+# Deques support thread-safe, memory efficient appends and pops from either
+# side of the deque with approximately the same O(1) performance in either
+# direction.
+from collections import deque
+queue = deque(["Eric", "John", "Michael"])
+queue.append("Terry")
+# queue=deque(['Eric', 'John', 'Michael', 'Terry'])
+print(f'{queue=}')
+queue.append("Graham")
+# queue=deque(['Eric', 'John', 'Michael', 'Terry', 'Graham'])
+print(f'{queue=}')
+leavingPerson = queue.popleft()
+# leavingPerson='Eric'
+print(f'{leavingPerson=}')
+# queue=deque(['John', 'Michael', 'Terry', 'Graham'])
+print(f'{queue=}')
+leavingPerson = queue.popleft()
+# leavingPerson='John'
+print(f'{leavingPerson=}')
+# queue=deque(['Michael', 'Terry', 'Graham'])
+print(f'{queue=}')
 
 
 """
@@ -104,7 +166,7 @@ cubes = [1, 8, 27, 65]
 # replace the wrong value
 cubes[3] = 64
 # [1, 8, 27, 64]
-cubes
+print(cubes)
 
 """
 Deleting values from a list
@@ -140,11 +202,11 @@ cubes = [1, 8, 27, 65]
 # Append the cube of 5
 cubes.append(125)
 # [1, 8, 27, 65, 125]
-cubes
+print(cubes)
 # Append the cube of 6
 cubes.append(6 ** 3)
 # [1, 8, 27, 65, 125, 216]
-cubes
+print(cubes)
 
 aList = [1, 3]
 aList.append(5)
@@ -238,6 +300,19 @@ print(a)
 
 
 """
+Pop
+Remove item at a given Index, or last item, and Return it.
+"""
+names = ["Jack", "Bro", "Spencer", "Dude"]
+lastDude = names.pop();
+# "Dude"
+print(lastDude)
+secondDude = names.pop(1)
+# Bro
+print(secondDude)
+
+
+"""
 Reverse
 Remove all items from the list.
 """
@@ -308,6 +383,26 @@ except ValueError as ve:
 
 
 """
+Del
+Removes an item from a list given its index instead of its value.
+This differs from the pop() method which returns a value.
+The del statement can also be used to remove slices from a list or clear the 
+entire list.
+
+"""
+aList = [-1, 1, 333, 333, 1234.5]
+del aList[0]                    # -1 is removed
+# aList=[1, 333, 333, 1234.5]
+print(f'{aList=}')
+del aList[1:3]                  # 333 and 333 are removed
+# aList=[1, 1234.5]
+print(f'{aList=}')
+del aList[:]
+# aList=[]
+print(f'{aList=}')
+
+
+"""
 Count
 Given aList.count(x), Return the number of times x appears in aList.
 """
@@ -318,6 +413,35 @@ print('aList.count(99) =>', aList.count(99))
 
 aList = ['Bob', 'Dylan', 'Bob', 'Bob']
 print('aList.count(\'Bob\') =>', aList.count('Bob'))
+
+
+"""
+Index
+Given a value, Return its index in the list
+"""
+# NOTE: This list has a duplicate
+fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'banana']
+# Find index of first 'banana'
+ind = fruits.index('banana')
+# ind=3
+print(f'{ind=}')
+# Find index of second 'banana' - search starting from position 4
+ind = fruits.index('banana', 4)
+# ind=5
+print(f'{ind=}')
+
+# NOTE: Return all occurrences of 'banana'; one solution is list comprehension
+allInd = [i for i, x in enumerate(fruits) if x == "banana"]
+# allInd=[3, 5]
+print(f'{allInd=}')
+
+# another solution using loop & if
+allInd = []
+for i in range(len(fruits)):
+    if fruits[i] == 'banana':
+        allInd.append(i)
+# allInd=[3, 5]
+print(f'{allInd=}')
 
 
 """
@@ -360,13 +484,13 @@ except IndexError as ie:
 
 # However, slice indexes are handled "gracefully" if out of bounds
 # returns 'hon'
-word[-3:23]
+print(word[-3:23])
 # returns 'ython'
-word[1:30]
+print(word[1:30])
 # returns 'n'
-word[-1:19]
+print(word[-1:19])
 # returns 'Pyt'
-word[-6:3]
+print(word[-6:3])
 # Consider this table of indices
 # +---+---+---+---+---+---+
 # | P | y | t | h | o | n |
@@ -384,21 +508,24 @@ sameList = allSquares[:]
 
 # Lists also support operations like concatenation:
 allSquares = [1, 4, 9]
-allSquares + [36, 49]             # [1, 4, 9, 36, 49]
+# [1, 4, 9, 36, 49]
+print(allSquares + [36, 49])
 
 # Assignment to slices is also possible,
 # NOTE: this can change the size of the list/clear it:
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-letters				# prints ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 # replace some values
 letters[2:5] = ['C', 'D', 'E']
-letters 			# prints ['a', 'b', 'C', 'D', 'E', 'f', 'g']
+# prints ['a', 'b', 'C', 'D', 'E', 'f', 'g']
+print(letters)
 # now remove them
 letters[2:5] = []
-letters				# prints ['a', 'b', 'f', 'g']
+# prints ['a', 'b', 'f', 'g']
+print(letters)
 # clear the list by replacing all the elements with an empty list
 letters[:] = []
-letters				# prints "" (nothing)
+# prints "" (nothing)
+print(letters)
 
 
 
@@ -488,179 +615,89 @@ except TypeError as error:
 
 
 
+
+
+# ****************************************************************************
+# *                          List Comprehensions                             *
+# *                                                                          *
+# ****************************************************************************
+# """List Comprehensions"""
+# A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses.
+#
+# For example, this listcomp combines the elements of two lists if they are not equal:
+# [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]		# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+# and it’s equivalent to:
+# combs = []
+# for x in [1,2,3]:
+# 	for y in [3,1,4]:
+# 		if x != y:
+# 			combs.append((x, y))
+# combs														# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+#
+# assume we want to create a list of squares, like:
+# squares = []
+# for x in range(10):
+# 	squares.append(x**2)
+# 	squares													# prints [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+#
+# List comprehensions can contain complex expressions and nested functions:
+# from math import pi
+# [str(round(pi, i)) for i in range(1, 6)]					# prints ['3.1', '3.14', '3.142', '3.1416', '3.14159']
+#
+#
+# The initial expression in a list comprehension can be any arbitrary expression, including another list comprehension.
+#
+# Consider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:
+# matrix = [
+# 	[1, 2, 3, 4],
+# 	[5, 6, 7, 8],
+# 	[9, 10, 11, 12],
+# ]
+# The following list comprehension will transpose rows and columns
+# [[row[i] for row in matrix] for i in range(4)]				# prints [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+# this example is equivalent to:
+# transposed = []
+# for i in range(4):
+# ...     transposed.append([row[i] for row in matrix])
+# ...
+# transposed
+# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+# which, in turn, is the same as:
+#
+# >>>
+# transposed = []
+# for i in range(4):
+# ...     # the following 3 lines implement the nested listcomp
+# ...     transposed_row = []
+# ...     for row in matrix:
+# ...         transposed_row.append(row[i])
+# ...     transposed.append(transposed_row)
+# ...
+# transposed
+# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+
+
 """ Order of operation is paramount: """
 list1 = [5, 4, 3, 2, 1]
 list2 = list1
-list1 += [1, 2, 3, 4]		# NOTE: += means plus THEN equals
+list1 += [1, 2, 3, 4]		    # NOTE: += means plus THEN equals
+# [5, 4, 3, 2, 1, 1, 2, 3, 4]
 print(list1)
+# [5, 4, 3, 2, 1, 1, 2, 3, 4]
 print(list2)
 
 list1 = [5, 4, 3, 2, 1]
-list2 = list1				# NOTE: WRONG you did the equals before the plus
-list1 = list1 + [1, 2, 3, 4]
+list1 = list1 + [1, 2, 3, 4]    # NOTE: plus
+list2 = list1					# NOTE: then equals
+# [5, 4, 3, 2, 1, 1, 2, 3, 4]
 print(list1)
-print(list2)				# list2 are different from above
+# [5, 4, 3, 2, 1, 1, 2, 3, 4]
+print(list2)				    # both are same as above
 
 list1 = [5, 4, 3, 2, 1]
-list1 = list1 + [1, 2, 3, 4]   # NOTE: plus
-list2 = list1					   # NOTE: then equals
+list2 = list1				    # NOTE: You did the equals before the plus
+list1 = list1 + [1, 2, 3, 4]
+# [5, 4, 3, 2, 1, 1, 2, 3, 4]
 print(list1)
-print(list2)				         # both are same as above
-
-
-
-# Remember; Membership Operators; tests if value is in data sequence, True or False
-print(2 in [1, 2, 3, 4])  #True
-
-# For example; a list of values where each index is squared, and the list has goes from 0*0, 1*1, etc, up to 9*9
-S = [x**2 for x in range(10)]
-print(S)
-
-
-
-""" Other useful methods """
-
-
-
-
-
-
-
-list.pop([i])		# [indexOfItem] optional
-# Remove the item at the given position in the list, ...
-# ... AND RETURN IT.
-# If no index is specified, a.pop() removes and returns the LAST item.
-# NOTE: (The square brackets around the i in the method signature denote that the parameter is optional, not that you should type square brackets at that position. You will see this notation frequently in the Python Library Reference.)
-
-
-
-
-
-
-
-fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
-fruits.index('banana')			# returns 3
-# Find next banana starting a position 4
-fruits.index('banana', 4)		# returns 6
-fruits.reverse()				# doesn't return anything
-fruits
-fruits.append('grape')			# doesn't return anything
-fruits
-fruits.sort()					# elements are all strings, so alphabetically sorted ascending
-fruits
-fruits.pop()				# returns 'pear'
-
-# NOTE: not all data can be sorted. For instance, [None, 'hello', 10] doesn’t sort because integers can’t be compared to strings and None can’t be compared to other types.
-
-Using Lists as Stacks (Last-In-First-Out)
-To add an item to the top of the stack, use append().
-To retrieve an item from the top of the stack, use pop() without an explicit index.
-
-stack = [3, 4, 5]
-stack.append(6)w
-stack.append(7)
-stack
-[3, 4, 5, 6, 7]
-stack.pop()
-7
-stack
-[3, 4, 5, 6]
-stack.pop()
-6
-stack.pop()
-5
-stack
-[3, 4]
-
-
-Using Lists as Queues (First-In-First-Out)
-You can but lists aren't efficient for this.
-While appends and pops from the end of list are fast, doing inserts or pops from the beginning of a list is slow (because all of the other elements have to be shifted by one).
-To implement a queue, use collections.deque which was designed to have fast appends and pops from both ends. For example:
-from collections import deque
-queue = deque(["Eric", "John", "Michael"])
-queue.append("Terry")           # Terry arrives
-queue.append("Graham")          # Graham arrives
-queue.popleft()                 # The first to arrive now leaves
-'Eric'
-queue.popleft()                 # The second to arrive now leaves
-'John'
-queue                           # Remaining queue in order of arrival
-deque(['Michael', 'Terry', 'Graham'])
-
-
-"""List Comprehensions"""
-A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses.
-
-For example, this listcomp combines the elements of two lists if they are not equal:
-[(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]		# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-and it’s equivalent to:
-combs = []
-for x in [1,2,3]:
-	for y in [3,1,4]:
-		if x != y:
-			combs.append((x, y))
-combs														# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-
-assume we want to create a list of squares, like:
-squares = []
-for x in range(10):
-	squares.append(x**2)
-	squares													# prints [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
-
-List comprehensions can contain complex expressions and nested functions:
-from math import pi
-[str(round(pi, i)) for i in range(1, 6)]					# prints ['3.1', '3.14', '3.142', '3.1416', '3.14159']
-
-
-The initial expression in a list comprehension can be any arbitrary expression, including another list comprehension.
-
-Consider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:
-matrix = [
-	[1, 2, 3, 4],
-	[5, 6, 7, 8],
-	[9, 10, 11, 12],
-]
-The following list comprehension will transpose rows and columns
-[[row[i] for row in matrix] for i in range(4)]				# prints [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-this example is equivalent to:
-transposed = []
-for i in range(4):
-...     transposed.append([row[i] for row in matrix])
-...
-transposed
-[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-which, in turn, is the same as:
-
->>>
-transposed = []
-for i in range(4):
-...     # the following 3 lines implement the nested listcomp
-...     transposed_row = []
-...     for row in matrix:
-...         transposed_row.append(row[i])
-...     transposed.append(transposed_row)
-...
-transposed
-[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-
-
-
-The del statement
-Removes an item from a list given its index instead of its value.
-This differs from the pop() method which returns a value.
-The del statement can also be used to remove slices from a list or
-clear the entire list (which we did earlier by assignment of an
-empty list to the slice). For example:
-
->>>
-a = [-1, 1, 66.25, 333, 333, 1234.5]
-del a[0]
-a
-[1, 66.25, 333, 333, 1234.5]
-del a[2:4]
-a
-[1, 66.25, 1234.5]
-del a[:]
-a
-[]
+# [5, 4, 3, 2, 1]
+print(list2)				    # list2 are different from above
