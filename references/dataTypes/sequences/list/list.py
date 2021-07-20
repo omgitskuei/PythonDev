@@ -617,64 +617,6 @@ except TypeError as error:
 
 
 
-# ****************************************************************************
-# *                          List Comprehensions                             *
-# *                                                                          *
-# ****************************************************************************
-# """List Comprehensions"""
-# A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses.
-#
-# For example, this listcomp combines the elements of two lists if they are not equal:
-# [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]		# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-# and it’s equivalent to:
-# combs = []
-# for x in [1,2,3]:
-# 	for y in [3,1,4]:
-# 		if x != y:
-# 			combs.append((x, y))
-# combs														# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-#
-# assume we want to create a list of squares, like:
-# squares = []
-# for x in range(10):
-# 	squares.append(x**2)
-# 	squares													# prints [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
-#
-# List comprehensions can contain complex expressions and nested functions:
-# from math import pi
-# [str(round(pi, i)) for i in range(1, 6)]					# prints ['3.1', '3.14', '3.142', '3.1416', '3.14159']
-#
-#
-# The initial expression in a list comprehension can be any arbitrary expression, including another list comprehension.
-#
-# Consider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:
-# matrix = [
-# 	[1, 2, 3, 4],
-# 	[5, 6, 7, 8],
-# 	[9, 10, 11, 12],
-# ]
-# The following list comprehension will transpose rows and columns
-# [[row[i] for row in matrix] for i in range(4)]				# prints [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-# this example is equivalent to:
-# transposed = []
-# for i in range(4):
-# ...     transposed.append([row[i] for row in matrix])
-# ...
-# transposed
-# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-# which, in turn, is the same as:
-#
-# >>>
-# transposed = []
-# for i in range(4):
-# ...     # the following 3 lines implement the nested listcomp
-# ...     transposed_row = []
-# ...     for row in matrix:
-# ...         transposed_row.append(row[i])
-# ...     transposed.append(transposed_row)
-# ...
-# transposed
-# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 
 
 """ Order of operation is paramount: """
