@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+Created on Mon Jul 26 10:48:31 2021
+
 List Comprehensions
 List comprehension offers a shorter syntax when you want to create a new list
 based on the values of (an) existing list(s).
@@ -16,6 +18,12 @@ followed by a for clause, then zero or more for or if clauses.
 
 @author: omgitskuei
 """
+
+# ****************************************************************************
+# *                          List Comprehension                              *
+# *                               Examples                                   *
+# ****************************************************************************
+
 # In[0]
 print('Return a new list that is the SAME as the iterable')
 things = [1, 2.2, "a"]
@@ -41,6 +49,7 @@ print(f'{newList=}')    # prints newList=[1, 2.2, 4]
 # list comprehension equivalent
 newList = [number for number in numbers if number < 5]
 print(f'{newList=}')    # prints newList=[1, 2.2, '4']
+
 
 # Only accept items that are not "apple":
 fruits = ["apple", "banana", "cherry"]
@@ -113,62 +122,66 @@ print(f'{compList=}')     # prints ['apple', 'orange', 'cherry', 'orange']
 
 
 # In[6]
-
-
-
-
-
-
-
-
-
-
-# In[2]: Set the values in the new list to upper case:
-newList2 = []
+print('Set the values in the new list to upper case:')
+newList = []
 fruits = ["apple", "banana", "cherry"]
 for eachStr in fruits:
-    newList2.append(eachStr.upper())
-print(f'{newList2=}')       # prints ['APPLE', 'BANANA', 'CHERRY']
+    newList.append(eachStr.upper())
+print(f'{newList=}')       # prints ['APPLE', 'BANANA', 'CHERRY']
+
 # list comprehension equivalent
-compList2 = [x.upper() for x in fruits]
-print(f'{compList2=}')      # prints ['APPLE', 'BANANA', 'CHERRY']
+compList = [x.upper() for x in fruits]
+print(f'{compList=}')      # prints ['APPLE', 'BANANA', 'CHERRY']
 
 
+# In[7]
+print('Return list with only values that contain "A":')
+allIDs = ['A126123', 'A213333', 'B231111', 'X928193', 'a000111']
+newIDs = []
+for eachID in allIDs:
+    if "A" in eachID:     # "a" != "A"
+        newIDs.append(eachID)
+print(f'{newIDs=}')       # prints newIDs=['A126123', 'A213333']
+
+# list comprehension equivalent
+newIDs = [eachID for eachID in allIDs if "A" in eachID]
+print(f'{newIDs=}')       # prints newIDs=['A126123', 'A213333']
 
 
+# In[8]
+print('You can use the range() function to create an iterable')
+newList = [x for x in range(5)]
+print(f'{newList=}')       # prints newList=[0, 1, 2, 3, 4]
 
-You can use the range() function to create an iterable:
-newlist = [x for x in range(10)]
-
-With no if statement:
-newlist = [x for x in fruits]
-
-
-
+newList = [str(x) for x in range(5)]
+print(f'{newList=}')       # prints newList=['0', '1', '2', '3', '4']
 
 
-# Based on a list of fruits, you want a new list, containing only the fruits
-# with the letter "a" in the name.
-oldList = ["apple", "banana", "cherry", "kiwi", "mango"]
-newList = []
-for eachStr in oldList:
-    if "a" in eachStr:    # if String contains 'a'
-        newList.append(eachStr)
-# prints ['apple', 'banana', 'mango']
-print(newList)
+# In[9]
+print('Return a new list of concatenated values')
+a = ['1', '3', '5']
+b = ['A', 'B']
+c = []
+for x in a:
+    for y in b:
+        c.append(f'{x}{y}') # same as c.append(x+y)
+print(f'{c=}')    # prints c=['1A', '1B', '3A', '3B', '5A', '5B']
 
-# With list comprehension you can do all that with only one line of code:
-oldList = ["apple", "banana", "cherry", "kiwi", "mango"]
-newList = [eachStr for eachStr in oldList if "a" in eachStr]
-# prints ['apple', 'banana', 'mango']
-print(newList)
+# list comprehension equivalent
+c = [x+y for x in ['1', '3', '5'] for y in ['A', 'B']]
+print(f'{c=}')    # prints c=['1A', '1B', '3A', '3B', '5A', '5B']
 
 
-
-# this listcomp combines the elements of two lists if they are not equal:
-combinedList = [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
-# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-print(combinedList)
+# In[10]
+print('This listcomp combines elements of two lists if they are not equal')
+d = []
+for x in [1,2,3]:
+	for y in [3,1,4]:
+		if x != y:
+			d.append((x, y))
+print(f'{d=}')    # prints d=[(1, 3), (1, 4),
+                  # (2, 3), (2, 1), (2, 4),
+                  # (3, 1), (3, 4)]
 
 # Step by Step process for getting combinedList;
 # |  x  |  y  |  !=?  |  append  |
@@ -185,67 +198,72 @@ print(combinedList)
 # |  3  |  1  |  yes  |  (3, 1)  |
 # |  3  |  4  |  yes  |  (3, 4)  |
 
-# this listcomp is equivalent to:
-combinedList = []
-for x in [1,2,3]:
-	for y in [3,1,4]:
-		if x != y:
-			combinedList.append((x, y))
-# prints [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-print(combinedList)
+# list comprehension equivalent
+d = [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
+print(f'{d=}')    # prints d=[(1, 3), (1, 4),
+                  # (2, 3), (2, 1), (2, 4),
+                  # (3, 1), (3, 4)]
 
 
+# In[11]
+print('Return a new list of squares')
+squares = []
+for x in range(10):
+    squares.append(x**2)
+print(f'{squares=}')    # prints squares=[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 
-# ****************************************************************************
-# *                          List Comprehensions                             *
-# *                                                                          *
-# ****************************************************************************
+# list comprehension equivalent
+squares = [x**2 for x in range(10)]
+print(f'{squares=}')    # prints squares=[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 
 
-#
-#
-#
-#
-# and
-#
-# assume we want to create a list of squares, like:
-# squares = []
-# for x in range(10):
-# 	squares.append(x**2)
-# 	squares													# prints [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
-#
-# List comprehensions can contain complex expressions and nested functions:
-# from math import pi
-# [str(round(pi, i)) for i in range(1, 6)]					# prints ['3.1', '3.14', '3.142', '3.1416', '3.14159']
-#
-#
-# The initial expression in a list comprehension can be any arbitrary expression, including another list comprehension.
-#
-# Consider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:
-# matrix = [
-# 	[1, 2, 3, 4],
-# 	[5, 6, 7, 8],
-# 	[9, 10, 11, 12],
-# ]
-# The following list comprehension will transpose rows and columns
-# [[row[i] for row in matrix] for i in range(4)]				# prints [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-# this example is equivalent to:
-# transposed = []
-# for i in range(4):
-# ...     transposed.append([row[i] for row in matrix])
-# ...
-# transposed
-# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
-# which, in turn, is the same as:
-#
-# >>>
-# transposed = []
-# for i in range(4):
-# ...     # the following 3 lines implement the nested listcomp
-# ...     transposed_row = []
-# ...     for row in matrix:
-# ...         transposed_row.append(row[i])
-# ...     transposed.append(transposed_row)
-# ...
-# transposed
-# [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+# In[12]
+# List Comp. can contain complex expressions and nested functions
+print('Return a list of values of pi with 1 to 5 decimals:')
+from math import pi
+a=[str(round(pi, i)) for i in range(1, 6)]
+print(f'{a=}')    # prints a=['3.1', '3.14', '3.142', '3.1416', '3.14159']
+
+
+# In[13]
+# The initial expression in a list comprehension can be any arbitrary expression,
+# including another list comprehension.
+print('Transpose a 3x4 matrix (list[list]) of 3 lists of length 4')
+matrix = [
+ 	[1, 2, 3, 4],
+ 	[5, 6, 7, 8],
+ 	[9, 10, 11, 12],
+]
+
+transposed = []
+for i in range(4):
+     transposed_row = []
+     for row in matrix:
+         transposed_row.append(row[i])
+     transposed.append(transposed_row)
+print(f'{transposed=}') # prints [
+                        # [1, 5, 9],
+                        # [2, 6, 10],
+                        # [3, 7, 11],
+                        # [4, 8, 12]
+                        # ]
+
+transposed = []
+for i in range(4):
+     transposed.append([row[i] for row in matrix])
+print(f'{transposed=}') # prints [
+                        # [1, 5, 9],
+                        # [2, 6, 10],
+                        # [3, 7, 11],
+                        # [4, 8, 12]
+                        # ]
+
+# list comprehension equivalent
+transposed = [[row[i] for row in matrix] for i in range(4)]
+print(f'{transposed=}') # prints [
+                        # [1, 5, 9],
+                        # [2, 6, 10],
+                        # [3, 7, 11],
+                        # [4, 8, 12]
+                        # ]
+

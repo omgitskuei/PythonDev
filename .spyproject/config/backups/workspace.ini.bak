@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['references\\dataTypes\\sequences\\list.py', 'references\\fundamentals\\handlingLongPythonLines.py', 'references\\dataTypes\\sequences\\dataStructures.py', 'references\\dataTypes\\sets\\set.py']
+recent_files = ['references\\dataTypes\\sequences\\list\\listComprehension.py']
 
