@@ -26,24 +26,25 @@ e = dict({'three': 3, 'one': 1, 'two': 2})
 # comparing dicts, doesn't check items order
 print(a == b == c == d == e)    # True
 
-''' SYNTAX - Declaring map'''
-# constructor/declaring a dict (two different ways to declare):
-# 1) its key-value pairs are separated by : colon (not = sign), surrounded by {}
+# In[2] Declaring a dict
 dictionary = {"key":"metal thing", "chair":"furniture"}
-# 2) its key-value pairs are separated by = equals, surrounded by ()
-dictionary = dict(one="1", two="2", three="3")			# overwrite
+numbers = dict(one="1", two="2", three="3")
 
-''' SYNTAX - Retrieving value'''
 # Retrieve dict value using key
-print(dictionary.get("key", "notFound"))		# prints notFound, notFound string is optional, default value None
-print(dictionary.get("one", "returnValueIfKeyNotFound"))		# prints 1, because 2nd declaration of dict overrode first one
-print(dictionary.get("1","notFound"))						# prints 0 because "1" is a value, not keyword
+print(numbers.get("key", "notFound"))		# prints notFound, notFound string is optional, default value None
+print(numbers.get("one", "returnValueIfKeyNotFound"))		# prints 1, because 2nd declaration of dict overrode first one
+print(numbers.get("1","notFound"))						# prints 0 because "1" is a value, not keyword
 # Another way of writing .get(key, valueIFNotFound)
-print(dictionary['three'])
+print(numbers['three'])
 
-print("omg" in dictionary)    # False
+print("omg" in numbers)    # False
 
+# In[3] Retrieving all keys, values, or pairs
 spam = {'color': 'red', 'age': 42}
+for k in spam:             # if unspecified, returns k => keys
+    print(k)
+# color
+# age
 for v in spam.values():
     print(v)
 # red
@@ -64,24 +65,23 @@ for k, v in spam.items():
 print('color' not in spam.keys())
 # False
 
-'''
-Set a default value for a key if that key does not
-already have a value.
-'''
+# In[4] Set a default value for a key if that key
+# doesn't already have a value.
 spam = {'name': 'Pooka', 'age': 5}
+
 spam.setdefault('color', 'black')
 # returns 'black'
+
 print(f'{spam=}')
 # {'color': 'black', 'age': 5, 'name': 'Pooka'}
+
 spam.setdefault('color', 'white')
 # returns 'black' - not changed already a key named 'color'.
+
 print(f'{spam=}')
 # {'color': 'black', 'age': 5, 'name': 'Pooka'}
 
-
-
-
-# Python has a set of built-in methods that you can use on dictionaries.
+# In[5] Python has a set of built-in methods that you can use on dictionaries.
 	# get()			Returns the value of the specified key
 	# pop()			Removes the element with the specified key
 	# fromkeys()	Returns a dictionary with the specified keys and value
