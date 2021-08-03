@@ -226,7 +226,7 @@ print(f'{a=}')    # prints a=['3.1', '3.14', '3.142', '3.1416', '3.14159']
 
 
 # In[13]
-# The initial expression in a list comprehension can be any arbitrary expression,
+# A list comprehension's expression can be any arbitrary expression,
 # including another list comprehension.
 print('Transpose a 3x4 matrix (list[list]) of 3 lists of length 4')
 matrix = [
@@ -235,12 +235,13 @@ matrix = [
  	[9, 10, 11, 12],
 ]
 
+# Transposing a list of lists w/ 2 for-loops, no list comps
 transposed = []
-for i in range(4):
-     transposed_row = []
-     for row in matrix:
-         transposed_row.append(row[i])
-     transposed.append(transposed_row)
+for i in range(4):      # 4 times, 4 nums in each row
+     tr_row = []
+     for row in matrix: # 3 times, 3 rows/items in matrix
+         tr_row.append(row[i])
+     transposed.append(tr_row)
 print(f'{transposed=}') # prints [
                         # [1, 5, 9],
                         # [2, 6, 10],
@@ -248,6 +249,19 @@ print(f'{transposed=}') # prints [
                         # [4, 8, 12]
                         # ]
 
+# Step by Step process for getting transposed;
+# | i | row |  row[i]  | tr_row   |  transposed    |
+# --------------------------------------------------
+# | 1 |  1  |     1    |  1       |                |
+# | 1 |  2  |     5    |  1, 5    |                |
+# | 1 |  3  |     9    |  1, 5, 9 |[1,5,9]         |
+# --------------------------------------------------
+# | 2 |  1  |     2    |  2       |                |
+# | 2 |  2  |     6    |  2,6     |                |
+# | 2 |  3  |    10    |  2,6,10  |[1,5,9],[2,6,10]|
+#  3, 4. ... etc
+
+# Same as above, with 1 for-loop and 1 list comp
 transposed = []
 for i in range(4):
      transposed.append([row[i] for row in matrix])
@@ -257,8 +271,7 @@ print(f'{transposed=}') # prints [
                         # [3, 7, 11],
                         # [4, 8, 12]
                         # ]
-
-# list comprehension equivalent
+# Same as above, with a list comp where the expression is a list comp
 transposed = [[row[i] for row in matrix] for i in range(4)]
 print(f'{transposed=}') # prints [
                         # [1, 5, 9],

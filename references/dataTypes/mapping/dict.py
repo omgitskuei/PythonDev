@@ -1,35 +1,85 @@
-''' Dict '''
-# Various ways of writing dict
->>> a = dict(one=1, two=2, three=3)
->>> b = {'one': 1, 'two': 2, 'three': 3}
->>> c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
->>> d = dict([('two', 2), ('one', 1), ('three', 3)])
->>> e = dict({'three': 3, 'one': 1, 'two': 2})
->>> a == b == c == d == e				# returns True, mutable
+# -*- coding: utf-8 -*-
+'''
+Dict
+A dictionary ('Dict') is a collection of many items.
+Each item is a pair of data - key, value- where key
+is the index used to return value from the Dict.
+
+A dictionary is typed with braces, {}.
+myCat = {'name':'Gustav', 'age':5}
+print(myCat[name]) # 'Gustav'
+
+Keys doesn't have to be string, and can be any number.
+
+Dicts are unordered, and can be compared for Equality
+like lists, but return true as long as each share the
+same items.
+
+'''
+# In[1] - Various ways of writing dict
+a = dict(one=1, two=2, three=3)
+b = {'one': 1, 'two': 2, 'three': 3}
+c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
+d = dict([('two', 2), ('one', 1), ('three', 3)]) # dict(list of tuples)
+e = dict({'three': 3, 'one': 1, 'two': 2})
+
+# comparing dicts, doesn't check items order
+print(a == b == c == d == e)    # True
 
 ''' SYNTAX - Declaring map'''
 # constructor/declaring a dict (two different ways to declare):
 # 1) its key-value pairs are separated by : colon (not = sign), surrounded by {}
-dictionary = {"key":"a unique id for mapping", "chair":"a four-legged furniture one sits in"}
+dictionary = {"key":"metal thing", "chair":"furniture"}
 # 2) its key-value pairs are separated by = equals, surrounded by ()
 dictionary = dict(one="1", two="2", three="3")			# overwrite
 
 ''' SYNTAX - Retrieving value'''
 # Retrieve dict value using key
-print(dictionary.get("key", "returnValueIfKeyNotFound"))		# returnValueIfKeyNotFound is optional, default value None
+print(dictionary.get("key", "notFound"))		# prints notFound, notFound string is optional, default value None
 print(dictionary.get("one", "returnValueIfKeyNotFound"))		# prints 1, because 2nd declaration of dict overrode first one
-print(id(dictionary))
-# only matches KEYS
-print(dictionary.get("1","not found"))						# prints 0 because "1" is a value, not keyword
-
+print(dictionary.get("1","notFound"))						# prints 0 because "1" is a value, not keyword
 # Another way of writing .get(key, valueIFNotFound)
-thesaurus={"mean":"unkind", "welcoming":"likable", "sword":"blade"}
-print(thesaurus["mean"])
-# remember that the format of dict is always KEY:VALUE (key on left)
-# because format is always KEY:VALUE, print(thesaurus["unkind"]) WILL NOT return "mean", because "unkind" is not a key
-# print(thesaurus["unkind"])
-print(thesaurus["welcoming"])
-print(thesaurus["sword"])
+print(dictionary['three'])
+
+print("omg" in dictionary)    # False
+
+spam = {'color': 'red', 'age': 42}
+for v in spam.values():
+    print(v)
+# red
+# 42
+for k in spam.keys():
+    print(k)
+# color
+# age
+for i in spam.items():    # note: returns tuples
+    print(i)
+# ('color', 'red')
+# ('age', 42)
+for k, v in spam.items():
+    print('Key: ' + k + ' Value: ' + str(v))
+# Key: age Value: 42
+# Key: color Value: red
+
+print('color' not in spam.keys())
+# False
+
+'''
+Set a default value for a key if that key does not
+already have a value.
+'''
+spam = {'name': 'Pooka', 'age': 5}
+spam.setdefault('color', 'black')
+# returns 'black'
+print(f'{spam=}')
+# {'color': 'black', 'age': 5, 'name': 'Pooka'}
+spam.setdefault('color', 'white')
+# returns 'black' - not changed already a key named 'color'.
+print(f'{spam=}')
+# {'color': 'black', 'age': 5, 'name': 'Pooka'}
+
+
+
 
 # Python has a set of built-in methods that you can use on dictionaries.
 	# get()			Returns the value of the specified key
