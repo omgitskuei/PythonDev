@@ -1,0 +1,5 @@
+Country,Ranking
+Peru,1
+Congo,2
+Belgium,3
+Thailand,4
