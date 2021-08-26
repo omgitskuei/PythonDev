@@ -9,8 +9,8 @@ Sources:
 """
 
 
-def print_board(a_chessboard_dict: dict, show_coordinates_bool: bool):
-    # print_board(chessboard_dict, False)
+def print_board(board: dict, show_coordinates_bool: bool):
+    # print_board(board, False)
     # [R][N][B][Q][K][B][N][R]
     # [P][P][P][P][P][P][P][P]
     # [_][_][_][_][_][_][_][_]
@@ -19,7 +19,8 @@ def print_board(a_chessboard_dict: dict, show_coordinates_bool: bool):
     # [_][_][_][_][_][_][_][_]
     # [p][p][p][p][p][p][p][p]
     # [r][n][b][q][k][b][n][r]
-    # print_board(chessboard_dict, False) # if dict is default, empty
+
+    # print_board(board, False) # if dict is default, empty
     # [_][_][_][_][_][_][_][_]
     # [_][_][_][_][_][_][_][_]
     # [_][_][_][_][_][_][_][_]
@@ -28,7 +29,8 @@ def print_board(a_chessboard_dict: dict, show_coordinates_bool: bool):
     # [_][_][_][_][_][_][_][_]
     # [_][_][_][_][_][_][_][_]
     # [_][_][_][_][_][_][_][_]
-    # print_board(chessboard_dict, True)
+
+    # print_board(board, True)
     # [(0,0),R][(0,1),N][(0,2),B][(0,3),Q][(0,4),K][(0,5),B][(0,6),N][(0,7),R]
     # [(1,0),P][(1,1),P][(1,2),P][(1,3),P][(1,4),P][(1,5),P][(1,6),P][(1,7),P]
     # [(2,0),_][(2,1),_][(2,2),_][(2,3),_][(2,4),_][(2,5),_][(2,6),_][(2,7),_]
@@ -37,7 +39,8 @@ def print_board(a_chessboard_dict: dict, show_coordinates_bool: bool):
     # [(5,0),_][(5,1),_][(5,2),_][(5,3),_][(5,4),_][(5,5),_][(5,6),_][(5,7),_]
     # [(6,0),p][(6,1),p][(6,2),p][(6,3),p][(6,4),p][(6,5),p][(6,6),p][(6,7),p]
     # [(7,0),r][(7,1),n][(7,2),b][(7,3),q][(7,4),k][(7,5),b][(7,6),n][(7,7),r]
-    # print_board(chessboard_dict, True) # if dict is default, empty
+
+    # print_board(board, True) # if dict is default, empty
     # [(0,0),_][(0,1),_][(0,2),_][(0,3),_][(0,4),_][(0,5),_][(0,6),_][(0,7),_]
     # [(1,0),_][(1,1),_][(1,2),_][(1,3),_][(1,4),_][(1,5),_][(1,6),_][(1,7),_]
     # [(2,0),_][(2,1),_][(2,2),_][(2,3),_][(2,4),_][(2,5),_][(2,6),_][(2,7),_]
@@ -51,14 +54,14 @@ def print_board(a_chessboard_dict: dict, show_coordinates_bool: bool):
         for y in range(1, 9):
             if show_coordinates_bool:
                 string = string + \
-                         f'[({x}, {y}), ' + a_chessboard_dict[x, y] + ']'
+                         f'[({x}, {y}), ' + board[x, y] + ']'
             else:
-                string = string + f'[' + a_chessboard_dict[x, y] + ']'
+                string = string + f'[' + board[x, y] + ']'
         print(string)
 
 
-def print_board_alg(a_chessboard_dict: dict):
-    # print_board_alg(chessboard_dict)
+def print_board_alg(board: dict):
+    # print_board_alg(board)
     #     a  b  c  d  e  f  g  h
     #  8 [R][N][B][Q][K][B][N][R] 8
     #  7 [P][P][P][P][P][P][P][P] 7
@@ -73,18 +76,18 @@ def print_board_alg(a_chessboard_dict: dict):
     for x in range(8, 0, -1):
         string = f' {x} '
         for y in range(1, 9):
-            string = string + f'[' + a_chessboard_dict[x, y] + ']'
+            string = string + f'[' + board[x, y] + ']'
         print(string + f' {x}')
     print('    a  b  c  d  e  f  g  h ')
 
 
-def create_empty_board(a_chessboard_dict: dict):
+def create_empty_board(board: dict):
     for x in range(8, 0, -1):
         for y in range(1, 9):
-            a_chessboard_dict.setdefault((x, y), '_')
+            board.setdefault((x, y), '_')
 
 
-def spawn_starting_pieces(a_chessboard_dict: dict):
+def spawn_starting_pieces(board: dict):
     pawns_char = 'P'
     rooks_char = 'R'
     knight_char = 'N'
@@ -97,20 +100,20 @@ def spawn_starting_pieces(a_chessboard_dict: dict):
     # UPPER CASE for BLACK, lower case for white
     # spawn BLACK team pawns
     for x in range(first_col, last_col):
-        a_chessboard_dict[2, x] = pawns_char
+        board[2, x] = pawns_char
     # spawn white team pawns
     for x in range(first_col, last_col):
-        a_chessboard_dict[7, x] = pawns_char.lower()
+        board[7, x] = pawns_char.lower()
 
     vip_list = [rooks_char, knight_char, bishop_char,
                 queen_char, king_char,
                 bishop_char, knight_char, rooks_char]
     # spawn BLACK team vips
     for x in range(first_col, last_col):
-        a_chessboard_dict[1, x] = vip_list[x - 1]
+        board[1, x] = vip_list[x - 1]
     # spawn BLACK team vips
     for x in range(first_col, last_col):
-        a_chessboard_dict[8, x] = vip_list[x - 1].lower()
+        board[8, x] = vip_list[x - 1].lower()
 
 
 def convert_alg_to_grid(square_str: str):
@@ -131,10 +134,11 @@ def convert_grid_to_alg(square_tuple: tuple):
 
 def is_same_team(piece1: str, piece2: str):
     if piece1.islower() & piece2.islower():
-        return True;
+        return True
     if piece1.isupper() & piece2.isupper():
-        return True;
-    return False;
+        return True
+    return False
+
 
 def validate_move(prev_square_tuple: tuple,
                   next_square_tuple: tuple,
@@ -173,7 +177,7 @@ def validate_move(prev_square_tuple: tuple,
             try:
                 same = is_same_team(
                     piece_moved,
-                    chessboard[(color_int,  col - 1)])
+                    chessboard[(color_int, col - 1)])
                 if (chessboard[(color_int, col - 1)] != "_") & (not same):
                     valid_moves_list.append((color_int, col - 1))
             except KeyError:
@@ -343,7 +347,7 @@ while not game_over:
                      new_square_grid_tuple,
                      active_player,
                      chessboard_dict):
-        turn = turn+1
+        turn = turn + 1
         move_piece(old_square_grid_tuple, new_square_grid_tuple)
         reenter_move = False
         print('')
