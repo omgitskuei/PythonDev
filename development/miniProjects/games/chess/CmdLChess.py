@@ -184,9 +184,6 @@ def validate_move(prev_square_tuple: tuple,
                 pass
             # can only move forward one square if that square is empty
             try:
-                same = is_same_team(
-                    piece_moved,
-                    chessboard[(color_int, col)])
                 if chessboard[(color_int, col)] == "_":
                     valid_moves_list.append((color_int, col))
             except KeyError:
