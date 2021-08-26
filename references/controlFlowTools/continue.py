@@ -7,7 +7,8 @@ Created on: Sat Oct 24 11:37:09 2020
 @author: omgitskuei (Github)
 """
 
-# The continue statement, also borrowed from C, continues with the next iteration of the loop:
+# The continue statement, also borrowed from C, continues with the next
+# iteration of the loop:
 for num in range(2, 10):
     if num % 2 == 0:
         print("Found an even number", num)
