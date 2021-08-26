@@ -1,0 +1,14 @@
+2021/08/26
+Added functions:
+- print_board (for debugging)
+- print_board_alg
+- create_empty_board (dict of tuples to model chess board squares)
+- spawn_starting_pieces
+- convert_alg_to_grid (converting input into numbers for processing game logic)
+- convert_grid_to_alg (converting game logic results to user-friendly messages)
+- is_same_team (refactored from code to see if two pieces are both lower/upper)
+- validate_move - WIP, completed move rules for PAWNS
+- move_piece (updates board)
+- wrote MAIN
+To-Do:
+- add move rules for other pieces to validate_move

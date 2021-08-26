@@ -62,6 +62,10 @@ for k, v in spam.items():
 # Key: age Value: 42
 # Key: color Value: red
 
+dictKeysAsList = list(spam.keys())    # spam.keys() returns dict_keys obj
+dictKeysAsList.sort()                 # dict_keys obj can't be sorted
+print(dictKeysAsList)
+
 print('color' not in spam.keys())
 # False
 
