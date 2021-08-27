@@ -143,13 +143,236 @@ def is_same_team(piece1: str, piece2: str):
     return False
 
 
-# def get_valid_squares(prev_square: tuple,
-#                 chessboard: dict):
-#     valid_moves_list = []
-#     piece_moved = chessboard[prev_square]
-#     row, col = prev_square
-#
-#     return valid_moves_list
+def get_pawn_moves(pawn_coords: tuple,
+                   chessboard: dict):
+    piece_moved = chessboard[pawn_coords]
+    valid_moves_list = []
+    row, col = pawn_coords
+
+    # WHITE
+    if piece_moved.islower():
+        color_int = row - 1
+    # BLACK
+    else:
+        color_int = row + 1
+    # can only move diagonal-forward queen-side if that square has
+    # an enemy
+    try:
+        same = is_same_team(
+            piece_moved,
+            chessboard[(color_int, col - 1)])
+        if (chessboard[(color_int, col - 1)] != "_") & (not same):
+            valid_moves_list.append((color_int, col - 1))
+    except KeyError:
+        pass
+    # can only move forward one square if that square is empty
+    try:
+        if chessboard[(color_int, col)] == "_":
+            valid_moves_list.append((color_int, col))
+    except KeyError:
+        pass
+    # can only move diagonal-forward king-side if that square has
+    # an enemy
+    try:
+        same = is_same_team(
+            piece_moved,
+            chessboard[(color_int, col + 1)])
+        if (chessboard[(color_int, col + 1)] != "_") & (not same):
+            valid_moves_list.append((color_int, col + 1))
+    except KeyError:
+        pass
+    # if this pawn is moving for the first time that game, they
+    # can move forward two squares
+    if (row == 7) & (piece_moved.islower()):
+        valid_moves_list.append((color_int - 1, col))
+    if (row == 2) & (piece_moved.isupper()):
+        valid_moves_list.append((color_int + 1, col))
+    return valid_moves_list
+
+
+def get_rook_moves(rook_coords: tuple,
+                   chessboard: dict):
+    piece_moved = chessboard[rook_coords]
+    valid_moves_list = []
+    row, col = rook_coords
+    # add all horizontal possible squares
+    for x in range(1, 9, 1):
+        if x != col:
+            valid_moves_list.append((row, x))
+    # remove horizontal possible squares that are blocked
+    # remove queen-side (<--) after a piece is blocking
+    blocked_flag = False
+    for each_col in range(col - 1, 0, -1):
+        # remove all squares after being blocked
+        if blocked_flag:
+            valid_moves_list.remove((row, each_col))
+        else:
+            # if tile is occupied by a piece (of either team), squares after
+            # that one are blocked and not valid moves
+            if chessboard[(row, each_col)] != "_":
+                blocked_flag = True
+                # remove current square because rook can't take own pieces
+                if is_same_team(piece_moved, chessboard[(row, each_col)]):
+                    valid_moves_list.remove((row, each_col))
+    # remove king-side (-->) after a piece is blocking
+    blocked_flag = False
+    for each_col in range(col + 1, 9, 1):
+        # remove all squares after being blocked
+        if blocked_flag:
+            valid_moves_list.remove((row, each_col))
+        else:
+            # if tile is occupied by a piece (of either team), squares after
+            # that one are blocked and not valid moves
+            if chessboard[(row, each_col)] != "_":
+                blocked_flag = True
+                # remove current square because rook can't take own pieces
+                if is_same_team(piece_moved, chessboard[(row, each_col)]):
+                    valid_moves_list.remove((row, each_col))
+
+    # add all vertical possible squares
+    for y in range(1, 9, 1):
+        if y != row:
+            valid_moves_list.append((y, col))
+    # remove vertical possible squares that are blocked
+    # remove black-side (v) after a piece is blocking
+    blocked_flag = False
+    for each_row in range(row - 1, 0, -1):
+        # remove all squares after being blocked
+        if blocked_flag:
+            valid_moves_list.remove((each_row, col))
+        else:
+            # if tile is occupied by a piece (of either team), squares after
+            # that one are blocked and not valid moves
+            if chessboard[(each_row, col)] != "_":
+                blocked_flag = True
+                # remove current square because rook can't take own pieces
+                if is_same_team(piece_moved, chessboard[(each_row, col)]):
+                    valid_moves_list.remove((each_row, col))
+    # remove white-side (^) after a piece is blocking
+    blocked_flag = False
+    for each_row in range(row + 1, 9, 1):
+        # remove all squares after being blocked
+        if blocked_flag:
+            valid_moves_list.remove((each_row, col))
+        else:
+            # if tile is occupied by a piece (of either team), squares after
+            # that one are blocked and not valid moves
+            if chessboard[(each_row, col)] != "_":
+                blocked_flag = True
+                # remove current square because rook can't take own pieces
+                if is_same_team(piece_moved, chessboard[(each_row, col)]):
+                    valid_moves_list.remove((each_row, col))
+    return valid_moves_list
+
+
+def get_bishop_moves(bishop_coords: tuple,
+                     chessboard: dict):
+    piece_moved = chessboard[bishop_coords]
+    valid_moves_list = []
+    row, col = bishop_coords
+    # step contains pairs where KEY is direction, VALUE is x,y step
+    steps = {'8a': (1, -1), '8h': (1, 1), '1a': (-1, -1), '1h': (-1, 1)}
+    # bishop moves go in 4 directions
+    for x in range(0, 4, 1):
+        if x == 0:
+            # add bishop moves going from piece towards 8a direction
+            row_step = steps.get('8a')[0]  # 1
+            col_step = steps.get('8a')[1]  # -1
+        elif x == 1:
+            # add bishop moves going from piece towards 8h direction
+            row_step = steps.get('8h')[0]  # 1
+            col_step = steps.get('8h')[1]  # 1
+        elif x == 2:
+            # add bishop moves going from piece towards 1a direction
+            row_step = steps.get('1a')[0]  # -1
+            col_step = steps.get('1a')[1]  # -1
+        elif x == 3:
+            # add bishop moves going from piece towards 1h direction
+            row_step = steps.get('1h')[0]  # -1
+            col_step = steps.get('1h')[1]  # 1
+        else:
+            print("ERROR - GET_BISHOP_MOVES: error finding step pair")
+            break
+        offset = 1
+        flag_blocked = False
+        for y in range(1, 9 - row, 1):
+            curr_sq_row = row + offset * row_step
+            curr_sq_col = col + offset * col_step
+            if not flag_blocked:
+                if ((curr_sq_row == 0)
+                        or (curr_sq_col == 0)):
+                    break
+                # stop adding more squares further down this diagonal direction
+                if chessboard[(curr_sq_row, curr_sq_col)] != "_":
+                    if is_same_team(piece_moved,
+                                    chessboard[(curr_sq_row, curr_sq_col)]):
+                        break
+                    else:
+                        flag_blocked = True
+                valid_moves_list.append((curr_sq_row, curr_sq_col))
+                offset = offset + 1
+            else:
+                break
+    return valid_moves_list
+
+
+def get_knight_moves(knight_coords: tuple,
+                     chessboard: dict):
+    valid_moves_list = []
+    # step contains pairs where KEY is direction, VALUE is x,y step
+    steps = {'white_white_queen': (2, -1), 'white_white_king': (2, 1),
+             'black_black_queen': (-2, -1), 'black_black_king': (-2, 1),
+             'queen_queen_white': (1, -2), 'queen_queen_black': (-1, -2),
+             'king_king_white': (1, 2), 'king_king_black': (-1, 2)}
+    # knights move in 4 directions, gets steps for row, col for each direction
+    for x in range(0, 8, 1):
+        if x == 0:
+            row_step = steps.get('white_white_queen')[0]
+            col_step = steps.get('white_white_queen')[1]
+        elif x == 1:
+            row_step = steps.get('white_white_king')[0]
+            col_step = steps.get('white_white_king')[1]
+        elif x == 2:
+            row_step = steps.get('black_black_queen')[0]
+            col_step = steps.get('black_black_queen')[1]
+        elif x == 3:
+            row_step = steps.get('black_black_king')[0]
+            col_step = steps.get('black_black_king')[1]
+        elif x == 4:
+            row_step = steps.get('queen_queen_white')[0]
+            col_step = steps.get('queen_queen_white')[1]
+        elif x == 5:
+            row_step = steps.get('queen_queen_black')[0]
+            col_step = steps.get('queen_queen_black')[1]
+        elif x == 6:
+            row_step = steps.get('king_king_white')[0]
+            col_step = steps.get('king_king_white')[1]
+        elif x == 7:
+            row_step = steps.get('king_king_black')[0]
+            col_step = steps.get('king_king_black')[1]
+        else:
+            print("ERROR - GET_KNIGHT_MOVES: error finding step pair")
+            break
+        # TODO handle KeyError
+        # knight moves ignore other pieces along its path, so don't need a loop
+        # knight can move to empty square
+        if (chessboard[(knight_coords[0] + row_step,
+                       knight_coords[1] + col_step)] == "_"):
+            valid_moves_list.append((knight_coords[0] + row_step,
+                                     knight_coords[1] + col_step))
+        # knight can move to enemy square
+        elif not is_same_team(chessboard[knight_coords],
+                              chessboard[(knight_coords[0] + row_step,
+                                          knight_coords[1] + col_step)]):
+            valid_moves_list.append((knight_coords[0] + row_step,
+                                     knight_coords[1] + col_step))
+        else:
+            # knight cannot move to friendly square, already occupied
+            print("this square occupied:", knight_coords[0] + row_step,
+                  knight_coords[1] + col_step)
+            pass
+    return valid_moves_list
+
 
 def is_valid_move(prev_square: tuple,
                   next_square: tuple,
@@ -158,170 +381,51 @@ def is_valid_move(prev_square: tuple,
     piece_moved = chessboard[prev_square]
     piece_being_captured = chessboard[next_square]
     valid_moves_list = []
-    row, col = prev_square
+
+    # PAWN RULES
     if (piece_moved == 'p') or (piece_moved == 'P'):
-        # WHITE
-        if piece_moved.islower():
-            color_int = row - 1
-        # BLACK
-        else:
-            color_int = row + 1
-        # can only move diagonal-forward queen-side if that square has
-        # an enemy
-        try:
-            same = is_same_team(
-                piece_moved,
-                chessboard[(color_int, col - 1)])
-            if (chessboard[(color_int, col - 1)] != "_") & (not same):
-                valid_moves_list.append((color_int, col - 1))
-        except KeyError:
-            pass
-        # can only move forward one square if that square is empty
-        try:
-            if chessboard[(color_int, col)] == "_":
-                valid_moves_list.append((color_int, col))
-        except KeyError:
-            pass
-        # can only move diagonal-forward king-side if that square has
-        # an enemy
-        try:
-            same = is_same_team(
-                piece_moved,
-                chessboard[(color_int, col + 1)])
-            if (chessboard[(color_int, col + 1)] != "_") & (not same):
-                valid_moves_list.append((color_int, col + 1))
-        except KeyError:
-            pass
-        # if this pawn is moving for the first time that game, they
-        # can move forward two squares
-        if (row == 7) & (piece_moved.islower()):
-            valid_moves_list.append((color_int - 1, col))
-        if (row == 2) & (piece_moved.isupper()):
-            valid_moves_list.append((color_int + 1, col))
+        valid_moves_list = get_pawn_moves(prev_square, chessboard)
+    # ROOK RULES
     elif (piece_moved == 'r') or (piece_moved == 'R'):
-        # add all horizontal possible squares
-        for x in range(1, 9, 1):
-            if x != col:
-                valid_moves_list.append((row, x))
-        # remove horizontal possible squares that are blocked
-        # remove queen-side (<--) after a piece is blocking
-        blocked_flag = False
-        for each_col in range(col, 0, -1):
-            curr_sq = chessboard[(row, each_col)]
-            if blocked_flag:
-                valid_moves_list.remove(curr_sq)
-            else:
-                if curr_sq != "_":
-                    blocked_flag = True
-                    # if this piece is the same team, remove as well
-                    # can't take own pieces
-                    same = is_same_team(piece_moved, curr_sq)
-                    if same:
-                        valid_moves_list.remove(curr_sq)
-        # remove king-side (-->) after a piece is blocking
-        blocked_flag = False
-        for each_col in range(col, 9, 1):
-            curr_sq = chessboard[(row, each_col)]
-            if blocked_flag:
-                valid_moves_list.remove(curr_sq)
-            else:
-                if curr_sq != "_":
-                    blocked_flag = True
-                    # if this piece is the same team, remove as well
-                    # can't take own pieces
-                    same = is_same_team(piece_moved, curr_sq)
-                    if same:
-                        valid_moves_list.remove(curr_sq)
-        # add all vertical possible squares
-        for y in range(1, 9, 1):
-            if y != row:
-                valid_moves_list.append((y, col))
-        # remove vertical possible squares that are blocked
-        # remove black-side (v) after a piece is blocking
-        blocked_flag = False
-        for each_row in range(row, 0, -1):
-            curr_sq = chessboard[(each_row, col)]
-            if blocked_flag:
-                valid_moves_list.remove(curr_sq)
-            else:
-                if curr_sq != "_":
-                    blocked_flag = True
-                    # if this piece is the same team, remove as well
-                    # can't take own pieces
-                    same = is_same_team(piece_moved, curr_sq)
-                    if same:
-                        valid_moves_list.remove(curr_sq)
-        # remove white-side (^) after a piece is blocking
-        blocked_flag = False
-        for each_row in range(row, 9, 1):
-            curr_sq = chessboard[(each_row, col)]
-            if blocked_flag:
-                valid_moves_list.remove(curr_sq)
-            else:
-                if curr_sq != "_":
-                    blocked_flag = True
-                    # if this piece is the same team, remove as well
-                    # can't take own pieces
-                    same = is_same_team(piece_moved, curr_sq)
-                    if same:
-                        valid_moves_list.remove(curr_sq)
-    elif (piece_type == 'n') or (piece_type == 'N'):
-        pass
-    elif (piece_type == 'b') or (piece_type == 'B'):
-        pass
-    elif piece_type == 'q':
-        pass
-    elif piece_type == 'k':
-        pass
+        valid_moves_list = get_rook_moves(prev_square, chessboard)
+    # KNIGHT RULES
+    elif (piece_moved == 'n') or (piece_moved == 'N'):
+        valid_moves_list = get_knight_moves(prev_square, chessboard)
+    # BISHOP RULES
+    elif (piece_moved == 'b') or (piece_moved == 'B'):
+        valid_moves_list = get_bishop_moves(prev_square, chessboard)
+    # QUEEN RULES
+    elif (piece_moved == 'q') or (piece_moved == 'Q'):
+        pass  # TODO
+    # KING RULES
+    elif (piece_moved == 'k') or (piece_moved == 'K'):
+        pass  # TODO
     else:
         print('Piece type not found: ' + piece_moved)
         return False
 
+    if hints:
+        count_int = 1
+        valid_moves_message = ''
+        if len(valid_moves_list) == 0:
+            print('Valid Moves = None')
+        else:
+            for each_square_tuple in valid_moves_list:
+                each_square_str = get_square_grid_to_alg(each_square_tuple)
+                valid_moves_message = valid_moves_message + each_square_str
+                if count_int < len(valid_moves_list):
+                    valid_moves_message = valid_moves_message + ", "
+                else:
+                    pass
+                count_int = count_int + 1
+            print("Valid moves = " + valid_moves_message)
 
-
-
-    # cannot move an empty square
-    if piece_moved == '_':
+    if next_square not in valid_moves_list:
         return False
-    else:
-        # cannot move your opponent's piece
-        if piece_moved.islower() & (player == 'Black'):
-            return False
-        if piece_moved.isupper() & (player == 'White'):
-            return False
-        # cannot move piece onto a square occupied by another of
-        # your own pieces
-        if is_same_team(piece_moved, piece_being_captured):
-            return False
-        # cannot make invalid moves for the piece's type
-        # (eg. pawns cannot move backwards)
-        # PAWNS
 
-
-
-
-
-
-
-        # show hints if enabled in Options
-        if hints:
-            count_int = 1
-            valid_moves_message = ''
-            if len(valid_moves_list) == 0:
-                print('Valid Moves = None')
-            else:
-                for each_square_tuple in valid_moves_list:
-                    each_square_str = get_square_grid_to_alg(each_square_tuple)
-                    valid_moves_message = valid_moves_message + each_square_str
-                    if count_int < len(valid_moves_list):
-                        valid_moves_message = valid_moves_message + ", "
-                    count_int = count_int + 1
-                print("Valid moves = " + valid_moves_message)
-
-        if next_square not in valid_moves_list:
-            return False
-
-        return True
+    # reaching here means move is valid for the piece type
+    # (king, queen, bishop, knight, rook, pawn)
+    return True
 
 
 def move_piece(prev_square: tuple,
@@ -347,9 +451,12 @@ old_square_grid_tuple = None
 new_square_grid_tuple = None
 refresh_menu_input = True
 hints = True
+reenter_move = False
 
 # init board for new game
 chessboard_dict = init_board(chessboard_dict)
+
+chessboard_dict[(5, 2)] = "n"
 
 print('CmdL Chess')
 print('Version 1.0')
@@ -395,9 +502,11 @@ while refresh_menu_input:
         exit(0)
 
 while not game_over:
-    reenter_move = False
+    # refresh board display on new turn
     if not reenter_move:
         print_board_alg(chessboard_dict)
+    # reset flag
+    reenter_move = False
     # if turn # is even, Black plays - odd, White plays
     if turn % 2 == 0:
         active_player = 'Black'
@@ -426,6 +535,30 @@ while not game_over:
         reenter_move = True
         continue
 
+    # check general rules before validating move
+    # cannot move an empty square
+    if chessboard_dict[old_square_grid_tuple] == '_':
+        reenter_move = True
+        print('That square has no pieces to move - Please try again.')
+        continue
+    else:
+        # cannot move your opponent's piece
+        if ((chessboard_dict[old_square_grid_tuple].islower()
+             and (active_player == 'Black'))
+                or
+                (chessboard_dict[old_square_grid_tuple].isupper()
+                 and (active_player == 'White'))):
+            print('Cannot move another player\'s piece - Please try again.')
+            reenter_move = True
+            continue
+        # cannot take your own pieces
+        if is_same_team(chessboard_dict[old_square_grid_tuple],
+                        chessboard_dict[new_square_grid_tuple]):
+            print('Cannot take your own pieces - Please try again.')
+            reenter_move = True
+            continue
+
+    # check if move made is valid for the piece type
     if is_valid_move(old_square_grid_tuple,
                      new_square_grid_tuple,
                      active_player,
@@ -437,4 +570,3 @@ while not game_over:
     else:
         print('Move invalid - Please enter a valid move.')
         reenter_move = True
-        print('')
