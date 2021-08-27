@@ -82,6 +82,7 @@ def create_empty_board(a_chessboard_dict: dict):
     for x in range(8, 0, -1):
         for y in range(1, 9):
             a_chessboard_dict.setdefault((x, y), '_')
+    return a_chessboard_dict
 
 
 def spawn_starting_pieces(a_chessboard_dict: dict):
@@ -113,7 +114,7 @@ def spawn_starting_pieces(a_chessboard_dict: dict):
         a_chessboard_dict[8, x] = vip_list[x - 1].lower()
 
 
-def convert_alg_to_grid(square_str: str):
+def get_square_alg_to_grid(square_str: str):
     char_to_num_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6,
                         'g': 7, 'h': 8}
     row = int(square_str[0:1])
@@ -122,7 +123,7 @@ def convert_alg_to_grid(square_str: str):
     return square_tuple
 
 
-def convert_grid_to_alg(square_tuple: tuple):
+def get_square_grid_to_alg(square_tuple: tuple):
     char_to_num_dict = {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f',
                         7: 'g', 8: 'h'}
     row, col = square_tuple
@@ -136,14 +137,22 @@ def is_same_team(piece1: str, piece2: str):
         return True;
     return False;
 
-def validate_move(prev_square_tuple: tuple,
-                  next_square_tuple: tuple,
+def get_valid_moves(prev_square: tuple,
+                chessboard: dict):
+    valid_moves_list = []
+    piece_moved = chessboard[prev_square]
+
+
+    return valid_moves_list
+
+def is_valid_move(prev_square: tuple,
+                  next_square: tuple,
                   player: str,
                   chessboard: dict):
-    piece_moved = chessboard[prev_square_tuple]
-    piece_being_captured = chessboard[next_square_tuple]
+    piece_moved = chessboard[prev_square]
+    piece_being_captured = chessboard[next_square]
     valid_moves_list = []
-    row, col = prev_square_tuple
+    row, col = prev_square
 
     # cannot move an empty square
     if piece_moved == '_':
@@ -225,13 +234,13 @@ def validate_move(prev_square_tuple: tuple,
                 print('Valid Moves = None')
             else:
                 for each_square_tuple in valid_moves_list:
-                    each_square_str = convert_grid_to_alg(each_square_tuple)
+                    each_square_str = get_square_grid_to_alg(each_square_tuple)
                     valid_moves_message = valid_moves_message + each_square_str
                     if count_int < len(valid_moves_list):
                         valid_moves_message = valid_moves_message + ", "
                     count_int = count_int + 1
                 print("Valid moves = " + valid_moves_message)
-        if next_square_tuple not in valid_moves_list:
+        if next_square not in valid_moves_list:
             return False
         return True
 
@@ -240,7 +249,7 @@ def move_piece(prev_square: tuple,
                next_square: tuple):
     print('Moving ' +
           chessboard_dict[prev_square] +
-          ' to ' + convert_grid_to_alg(next_square))
+          ' to ' + get_square_grid_to_alg(next_square))
     chessboard_dict[next_square] = chessboard_dict[prev_square]
     chessboard_dict[prev_square] = '_'
 
@@ -261,7 +270,7 @@ refresh_menu_input = True
 hints = True
 
 # init board for new game
-create_empty_board(chessboard_dict)
+chessboard_dict = create_empty_board(chessboard_dict)
 spawn_starting_pieces(chessboard_dict)
 
 print('CmdL Chess')
@@ -328,8 +337,8 @@ while not game_over:
         exit(0)
     # convert user prompt into tuples for board lookup
     try:
-        old_square_grid_tuple = convert_alg_to_grid(old_square)
-        new_square_grid_tuple = convert_alg_to_grid(new_square)
+        old_square_grid_tuple = get_square_alg_to_grid(old_square)
+        new_square_grid_tuple = get_square_alg_to_grid(new_square)
     except ValueError as v:
         print('Cannot parse user input - Please try again.')
         reenter_move = True
@@ -339,7 +348,7 @@ while not game_over:
         reenter_move = True
         continue
 
-    if validate_move(old_square_grid_tuple,
+    if is_valid_move(old_square_grid_tuple,
                      new_square_grid_tuple,
                      active_player,
                      chessboard_dict):
