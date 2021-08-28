@@ -12,3 +12,39 @@ Added functions:
 - wrote MAIN
 To-Do:
 - add move rules for other pieces to validate_move
+
+2021/08/27
+Updated functions:
+- combined create_empty_board with spawn_starting_pieces into init_board, since
+  there's no scenario where you'd intentionally run one without running the
+  other
+- renamed convert_alg_to_grid to get_square_alg_to_grid to follow the
+  nomeclature "get_..." if returning data, not void or returning bool
+- renamed convert_grid_to_alg to get_square_grid_to_alg to follow the
+  nomeclature "get_..." if returning data
+- refactored validate_move and relocated the logic that calculates all possible
+  valid moves for any piece into many new functions that only calculate possible
+  valid moves for a specific type of piece, such as get_pawn_moves
+- renamed validate_move to is_valid_move to follow the nomeclature "is..." if
+  returning bool
+Added functions:
+- get_pawn_moves - given a pawn coordinates as a tuple and board as dict of
+  tuples, return all possible valid moves as a list of tuples
+- get_rook_moves - given a rook coordinates as a tuple and board as dict of
+  tuples, return all possible valid moves as a list of tuples
+- get_bishop_moves - given a bishop coordinates as a tuple and board as dict of
+  tuples, return all possible valid moves as a list of tuples
+- get_knight_moves - given a knight coordinates as a tuple and board as dict of
+  tuples, return all possible valid moves as a list of tuples
+- rewrote error messages to be more specific such as "Move invalid." to
+  "Cannot take your own pieces - Please try again.",
+  "Cannot move another player's piece - Please try again.",
+  "That square has no pieces to move - Please try again.",
+  etc
+- added extra newline only when advancing a turn, turns don't advance if the
+  user needs to retry or reenter coordinates for any reason - improves
+  readability
+To-Do:
+- add get_queen_moves
+- add get_king_moves
+- add checkmate

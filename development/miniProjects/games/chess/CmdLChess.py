@@ -4,7 +4,11 @@ Command-Line Chess.
 omgitskuei
 Aug 26th 2021
 
+A command-line game of hot-seat chess where players move pieces by entering
+chess board square coordinates.
+
 Sources:
+Assignment prompt from;
 'Automate the Boring Stuff with Python, 2nd Edition' by Al Sweigart, 2019
 """
 
@@ -357,7 +361,7 @@ def get_knight_moves(knight_coords: tuple,
         # knight moves ignore other pieces along its path, so don't need a loop
         # knight can move to empty square
         if (chessboard[(knight_coords[0] + row_step,
-                       knight_coords[1] + col_step)] == "_"):
+                        knight_coords[1] + col_step)] == "_"):
             valid_moves_list.append((knight_coords[0] + row_step,
                                      knight_coords[1] + col_step))
         # knight can move to enemy square
@@ -371,6 +375,22 @@ def get_knight_moves(knight_coords: tuple,
             print("this square occupied:", knight_coords[0] + row_step,
                   knight_coords[1] + col_step)
             pass
+    return valid_moves_list
+
+
+def get_queen_moves(queen_coords: tuple,
+                    chessboard: dict):
+    valid_moves_list = []
+    steps = {'white_queen': (1, -1), 'white_king': (1, 1),
+             'black_queen': (-1, -1), 'black_king': (-1, 1)}
+
+    return valid_moves_list
+
+
+def get_king_moves(king_coords: tuple,
+                   chessboard: dict):
+    valid_moves_list = []
+
     return valid_moves_list
 
 
@@ -396,10 +416,10 @@ def is_valid_move(prev_square: tuple,
         valid_moves_list = get_bishop_moves(prev_square, chessboard)
     # QUEEN RULES
     elif (piece_moved == 'q') or (piece_moved == 'Q'):
-        pass  # TODO
+        valid_moves_list = get_queen_moves(prev_square, chessboard)
     # KING RULES
     elif (piece_moved == 'k') or (piece_moved == 'K'):
-        pass  # TODO
+        valid_moves_list = get_king_moves(prev_square, chessboard)
     else:
         print('Piece type not found: ' + piece_moved)
         return False
