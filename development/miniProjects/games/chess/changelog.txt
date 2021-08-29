@@ -40,7 +40,7 @@ Added functions:
   "Cannot take your own pieces - Please try again.",
   "Cannot move another player's piece - Please try again.",
   "That square has no pieces to move - Please try again.",
-  etc
+  etc.
 - added extra newline only when advancing a turn, turns don't advance if the
   user needs to retry or reenter coordinates for any reason - improves
   readability
@@ -48,3 +48,28 @@ To-Do:
 - add get_queen_moves
 - add get_king_moves
 - add checkmate
+
+2021/08/28
+Updated functions:
+- debugged get_knight_moves by catching KeyError thrown when evaluating squares
+  that are out of bounds
+Added functions:
+- get_queen_moves skeleton - no function
+- get_queen_moves skeleton - no function
+To-Do:
+- add get_queen_moves
+- add get_king_moves
+- add checkmate
+
+2021/08/29
+Updated functions:
+- added queen rules to get_queen_moves based on code from get_bishop_moves,
+  now function works
+- removed redundant variable from get_bishop_moves
+- fixed typo in comments explaining logic in get_knight_moves
+To-Do:
+- add get_king_moves
+- add checkmate
+- get_rook_moves code can be refactored based on get_bishop_moves
+- can get_pawn_moves be refactored based on get_bishop_moves?
+- didn't end up using print_board function, remove?

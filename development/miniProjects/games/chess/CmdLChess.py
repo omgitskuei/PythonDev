@@ -271,7 +271,6 @@ def get_rook_moves(rook_coords: tuple,
 
 def get_bishop_moves(bishop_coords: tuple,
                      chessboard: dict):
-    piece_moved = chessboard[bishop_coords]
     valid_moves_list = []
     row, col = bishop_coords
     # step contains pairs where KEY is direction, VALUE is x,y step
@@ -308,7 +307,7 @@ def get_bishop_moves(bishop_coords: tuple,
                     break
                 # stop adding more squares further down this diagonal direction
                 if chessboard[(curr_sq_row, curr_sq_col)] != "_":
-                    if is_same_team(piece_moved,
+                    if is_same_team(chessboard[bishop_coords],
                                     chessboard[(curr_sq_row, curr_sq_col)]):
                         break
                     else:
@@ -328,7 +327,7 @@ def get_knight_moves(knight_coords: tuple,
              'black_black_queen': (-2, -1), 'black_black_king': (-2, 1),
              'queen_queen_white': (1, -2), 'queen_queen_black': (-1, -2),
              'king_king_white': (1, 2), 'king_king_black': (-1, 2)}
-    # knights move in 4 directions, gets steps for row, col for each direction
+    # knights move in 8 directions, gets steps for row, col for each direction
     for x in range(0, 8, 1):
         if x == 0:
             row_step = steps.get('white_white_queen')[0]
@@ -357,23 +356,22 @@ def get_knight_moves(knight_coords: tuple,
         else:
             print("ERROR - GET_KNIGHT_MOVES: error finding step pair")
             break
-        # TODO handle KeyError
         # knight moves ignore other pieces along its path, so don't need a loop
         # knight can move to empty square
-        if (chessboard[(knight_coords[0] + row_step,
-                        knight_coords[1] + col_step)] == "_"):
-            valid_moves_list.append((knight_coords[0] + row_step,
-                                     knight_coords[1] + col_step))
+        target_coords = (knight_coords[0] + row_step,
+                         knight_coords[1] + col_step)
+        try:
+            possible_square = chessboard[target_coords]
+        except KeyError:
+            # this square is out of bounds, skip it
+            continue
+        if possible_square == "_":
+            valid_moves_list.append(target_coords)
         # knight can move to enemy square
-        elif not is_same_team(chessboard[knight_coords],
-                              chessboard[(knight_coords[0] + row_step,
-                                          knight_coords[1] + col_step)]):
-            valid_moves_list.append((knight_coords[0] + row_step,
-                                     knight_coords[1] + col_step))
+        elif not is_same_team(chessboard[knight_coords], possible_square):
+            valid_moves_list.append(target_coords)
         else:
             # knight cannot move to friendly square, already occupied
-            print("this square occupied:", knight_coords[0] + row_step,
-                  knight_coords[1] + col_step)
             pass
     return valid_moves_list
 
@@ -381,16 +379,70 @@ def get_knight_moves(knight_coords: tuple,
 def get_queen_moves(queen_coords: tuple,
                     chessboard: dict):
     valid_moves_list = []
-    steps = {'white_queen': (1, -1), 'white_king': (1, 1),
+    steps = {'king': (0, 1), 'queen': (0, -1),
+             'white': (1, 0), 'black': (-1, 0),
+             'white_queen': (1, -1), 'white_king': (1, 1),
              'black_queen': (-1, -1), 'black_king': (-1, 1)}
-
+    # queens move in 8 directions, gets steps for row, col for each direction
+    for x in range(0, 8, 1):
+        if x == 0:
+            row_step = steps.get('king')[0]
+            col_step = steps.get('king')[1]
+        elif x == 1:
+            row_step = steps.get('queen')[0]
+            col_step = steps.get('queen')[1]
+        elif x == 2:
+            row_step = steps.get('white')[0]
+            col_step = steps.get('white')[1]
+        elif x == 3:
+            row_step = steps.get('black')[0]
+            col_step = steps.get('black')[1]
+        elif x == 4:
+            row_step = steps.get('white_queen')[0]
+            col_step = steps.get('white_queen')[1]
+        elif x == 5:
+            row_step = steps.get('white_king')[0]
+            col_step = steps.get('white_king')[1]
+        elif x == 6:
+            row_step = steps.get('black_queen')[0]
+            col_step = steps.get('black_queen')[1]
+        elif x == 7:
+            row_step = steps.get('black_king')[0]
+            col_step = steps.get('black_king')[1]
+        else:
+            print("ERROR - GET_QUEEN_MOVES: error finding step pair")
+            break
+        offset = 1
+        flag_blocked = False
+        for y in range(1, 9, 1):
+            curr_sq_row = queen_coords[0] + offset * row_step
+            curr_sq_col = queen_coords[1] + offset * col_step
+            if not flag_blocked:
+                # current direction is out of bounds, don't bother evaluating
+                if ((curr_sq_row == 0) or (curr_sq_col == 0)
+                        or (curr_sq_row == 9) or (curr_sq_col == 9)):
+                    break
+                if chessboard[(curr_sq_row, curr_sq_col)] != "_":
+                    # square is friendly - don't add this square and any further
+                    # squares in this direction
+                    if is_same_team(chessboard[queen_coords],
+                                    chessboard[(curr_sq_row, curr_sq_col)]):
+                        break
+                    # square is enemy - add this square but don't add any further
+                    # squares in this direction
+                    else:
+                        flag_blocked = True
+                valid_moves_list.append((curr_sq_row, curr_sq_col))
+                offset = offset + 1
+            else:
+                break
     return valid_moves_list
 
 
 def get_king_moves(king_coords: tuple,
                    chessboard: dict):
     valid_moves_list = []
-
+    # TODO
     return valid_moves_list
 
 
@@ -476,7 +528,7 @@ reenter_move = False
 # init board for new game
 chessboard_dict = init_board(chessboard_dict)
 
-chessboard_dict[(5, 2)] = "n"
+chessboard_dict[(5, 2)] = "q"
 
 print('CmdL Chess')
 print('Version 1.0')
