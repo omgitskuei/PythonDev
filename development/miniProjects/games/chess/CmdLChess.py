@@ -76,12 +76,25 @@ def print_board_alg(board: dict):
     #  2 [p][p][p][p][p][p][p][p] 2
     #  1 [r][n][b][q][k][b][n][r] 1
     #     a  b  c  d  e  f  g  h
+
+    unicode_piece_symbols = {
+        "r": "♖", "R": "♜",
+        "n": "♘", "N": "♞",
+        "b": "♗", "B": "♝",
+        "q": "♕", "Q": "♛",
+        "k": "♔", "K": "♚",
+        "p": "♙", "P": "♟",
+        "_": "―"                # _ for empty square
+    }
+
     print('    a  b  c  d  e  f  g  h ')
     board_display = ""
     for x in range(8, 0, -1):
         board_display = board_display + f' {x} '
         for y in range(1, 9):
-            board_display = board_display + f'[' + board[x, y] + ']'
+            board_display = (board_display
+                            + f'['
+                             + unicode_piece_symbols[board[x, y]] + ']')
         board_display = board_display + f' {x}'
         if x != 1:
             board_display = board_display + '\n'
@@ -90,8 +103,6 @@ def print_board_alg(board: dict):
 
 
 def init_board(board: dict):
-
-
     pawns_char = 'P'
     rooks_char = 'R'
     knight_char = 'N'
@@ -100,6 +111,10 @@ def init_board(board: dict):
     king_char = 'K'
     first_col = 1
     last_col = 9
+    # Add empty space to all squares
+    for x in range(8, 0, -1):
+        for y in range(1, 9, 1):
+            board.setdefault((x, y), '_')
 
     # UPPER CASE for BLACK, lower case for white
     # spawn BLACK team pawns
@@ -435,8 +450,6 @@ reenter_move = False
 
 # init board for new game
 chessboard_dict = init_board(chessboard_dict)
-
-chessboard_dict[(3, 1)] = "k"
 
 print('CmdL Chess')
 print('Version 1.0')
