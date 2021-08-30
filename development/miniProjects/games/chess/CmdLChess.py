@@ -90,9 +90,7 @@ def print_board_alg(board: dict):
 
 
 def init_board(board: dict):
-    for x in range(8, 0, -1):
-        for y in range(1, 9):
-            board.setdefault((x, y), '_')
+
 
     pawns_char = 'P'
     rooks_char = 'R'
@@ -196,76 +194,38 @@ def get_pawn_moves(pawn_coords: tuple,
 
 def get_rook_moves(rook_coords: tuple,
                    chessboard: dict):
-    piece_moved = chessboard[rook_coords]
     valid_moves_list = []
-    row, col = rook_coords
-    # add all horizontal possible squares
-    for x in range(1, 9, 1):
-        if x != col:
-            valid_moves_list.append((row, x))
-    # remove horizontal possible squares that are blocked
-    # remove queen-side (<--) after a piece is blocking
-    blocked_flag = False
-    for each_col in range(col - 1, 0, -1):
-        # remove all squares after being blocked
-        if blocked_flag:
-            valid_moves_list.remove((row, each_col))
-        else:
-            # if tile is occupied by a piece (of either team), squares after
-            # that one are blocked and not valid moves
-            if chessboard[(row, each_col)] != "_":
-                blocked_flag = True
-                # remove current square because rook can't take own pieces
-                if is_same_team(piece_moved, chessboard[(row, each_col)]):
-                    valid_moves_list.remove((row, each_col))
-    # remove king-side (-->) after a piece is blocking
-    blocked_flag = False
-    for each_col in range(col + 1, 9, 1):
-        # remove all squares after being blocked
-        if blocked_flag:
-            valid_moves_list.remove((row, each_col))
-        else:
-            # if tile is occupied by a piece (of either team), squares after
-            # that one are blocked and not valid moves
-            if chessboard[(row, each_col)] != "_":
-                blocked_flag = True
-                # remove current square because rook can't take own pieces
-                if is_same_team(piece_moved, chessboard[(row, each_col)]):
-                    valid_moves_list.remove((row, each_col))
-
-    # add all vertical possible squares
-    for y in range(1, 9, 1):
-        if y != row:
-            valid_moves_list.append((y, col))
-    # remove vertical possible squares that are blocked
-    # remove black-side (v) after a piece is blocking
-    blocked_flag = False
-    for each_row in range(row - 1, 0, -1):
-        # remove all squares after being blocked
-        if blocked_flag:
-            valid_moves_list.remove((each_row, col))
-        else:
-            # if tile is occupied by a piece (of either team), squares after
-            # that one are blocked and not valid moves
-            if chessboard[(each_row, col)] != "_":
-                blocked_flag = True
-                # remove current square because rook can't take own pieces
-                if is_same_team(piece_moved, chessboard[(each_row, col)]):
-                    valid_moves_list.remove((each_row, col))
-    # remove white-side (^) after a piece is blocking
-    blocked_flag = False
-    for each_row in range(row + 1, 9, 1):
-        # remove all squares after being blocked
-        if blocked_flag:
-            valid_moves_list.remove((each_row, col))
-        else:
-            # if tile is occupied by a piece (of either team), squares after
-            # that one are blocked and not valid moves
-            if chessboard[(each_row, col)] != "_":
-                blocked_flag = True
-                # remove current square because rook can't take own pieces
-                if is_same_team(piece_moved, chessboard[(each_row, col)]):
-                    valid_moves_list.remove((each_row, col))
+    steps = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # straight directions
+    # rook move in 4 directions,
+    # get steps for row, col for each direction
+    for x in range(0, len(steps), 1):
+        row_step = (steps[x])[0]
+        col_step = (steps[x])[1]
+        offset = 1
+        flag_blocked = False
+        for y in range(1, 9, 1):
+            curr_sq_row = rook_coords[0] + offset * row_step
+            curr_sq_col = rook_coords[1] + offset * col_step
+            # current direction is out of bounds, don't bother evaluating
+            try:
+                possible_square = chessboard[(curr_sq_row, curr_sq_col)]
+            except KeyError:
+                break
+            if not flag_blocked:
+                if chessboard[(curr_sq_row, curr_sq_col)] != "_":
+                    # square is friendly - don't add this square and any further
+                    # squares in this direction
+                    if is_same_team(chessboard[rook_coords],
+                                    possible_square):
+                        break
+                    # square is enemy - add this square but don't add any
+                    # further squares in this direction
+                    else:
+                        flag_blocked = True
+                valid_moves_list.append((curr_sq_row, curr_sq_col))
+                offset = offset + 1
+            else:
+                break
     return valid_moves_list
 
 
@@ -284,14 +244,16 @@ def get_bishop_moves(bishop_coords: tuple,
         for y in range(1, 9 - row, 1):
             curr_sq_row = row + offset * row_step
             curr_sq_col = col + offset * col_step
+            # current square is out of bounds, don't bother evaluating
+            try:
+                possible_square = chessboard[(curr_sq_row, curr_sq_col)]
+            except KeyError:
+                break
             if not flag_blocked:
-                if ((curr_sq_row == 0)
-                        or (curr_sq_col == 0)):
-                    break
                 # stop adding more squares further down this diagonal direction
                 if chessboard[(curr_sq_row, curr_sq_col)] != "_":
                     if is_same_team(chessboard[bishop_coords],
-                                    chessboard[(curr_sq_row, curr_sq_col)]):
+                                    possible_square):
                         break
                     else:
                         flag_blocked = True
@@ -313,14 +275,14 @@ def get_knight_moves(knight_coords: tuple,
         row_step = (steps[x])[0]
         col_step = (steps[x])[1]
         # knight moves ignore other pieces along its path, so don't need a loop
-        # knight can move to empty square
         target_coords = (knight_coords[0] + row_step,
                          knight_coords[1] + col_step)
+        # current direction is out of bounds, don't bother evaluating
         try:
             possible_square = chessboard[target_coords]
         except KeyError:
-            # this square is out of bounds, skip it
             continue
+        # knight can move to empty square
         if possible_square == "_":
             valid_moves_list.append(target_coords)
         # knight can move to enemy square
@@ -338,7 +300,7 @@ def get_queen_moves(queen_coords: tuple,
     steps = [(0, 1), (0, -1), (1, 0), (-1, 0),  # straight directions
              (1, -1), (1, 1), (-1, -1), (-1, 1)]  # diagonal directions
     # queens move in 8 directions, gets steps for row, col for each direction
-    for x in range(0, 8, 1):
+    for x in range(0, len(steps), 1):
         row_step = (steps[x])[0]
         col_step = (steps[x])[1]
         offset = 1
@@ -346,19 +308,20 @@ def get_queen_moves(queen_coords: tuple,
         for y in range(1, 9, 1):
             curr_sq_row = queen_coords[0] + offset * row_step
             curr_sq_col = queen_coords[1] + offset * col_step
+            # current direction is out of bounds, don't bother evaluating
+            try:
+                possible_square = chessboard[(curr_sq_row, curr_sq_col)]
+            except KeyError:
+                break
             if not flag_blocked:
-                # current direction is out of bounds, don't bother evaluating
-                if ((curr_sq_row == 0) or (curr_sq_col == 0)
-                        or (curr_sq_row == 9) or (curr_sq_col == 9)):
-                    break
                 if chessboard[(curr_sq_row, curr_sq_col)] != "_":
                     # square is friendly - don't add this square and any further
                     # squares in this direction
                     if is_same_team(chessboard[queen_coords],
-                                    chessboard[(curr_sq_row, curr_sq_col)]):
+                                    possible_square):
                         break
-                    # square is enemy - add this square but don't add any further
-                    # squares in this direction
+                    # square is enemy - add this square but don't add any
+                    # further squares in this direction
                     else:
                         flag_blocked = True
                 valid_moves_list.append((curr_sq_row, curr_sq_col))
@@ -371,7 +334,29 @@ def get_queen_moves(queen_coords: tuple,
 def get_king_moves(king_coords: tuple,
                    chessboard: dict):
     valid_moves_list = []
-    # TODO
+    steps = [(0, 1), (0, -1), (1, 0), (-1, 0),  # straight directions
+             (1, -1), (1, 1), (-1, -1), (-1, 1)]  # diagonal directions
+    # king move in 8 directions, gets steps for row, col for each direction
+    for x in range(0, len(steps), 1):
+        row_step = (steps[x])[0]
+        col_step = (steps[x])[1]
+        flag_blocked = False
+        curr_sq_row = king_coords[0] + row_step
+        curr_sq_col = king_coords[1] + col_step
+        # current direction is out of bounds, don't bother evaluating
+        try:
+            possible_square = chessboard[(curr_sq_row, curr_sq_col)]
+        except KeyError:
+            continue
+        if chessboard[(curr_sq_row, curr_sq_col)] != "_":
+            # square is friendly - don't add this square and any further
+            # squares in this direction
+            if is_same_team(chessboard[king_coords],
+                            possible_square):
+                continue
+            # square is enemy - add this square but don't add any
+            # further squares in this direction
+        valid_moves_list.append((curr_sq_row, curr_sq_col))
     return valid_moves_list
 
 
@@ -381,8 +366,6 @@ def is_valid_move(prev_square: tuple,
                   chessboard: dict):
     piece_moved = chessboard[prev_square]
     piece_being_captured = chessboard[next_square]
-    valid_moves_list = []
-
     # PAWN RULES
     if (piece_moved == 'p') or (piece_moved == 'P'):
         valid_moves_list = get_pawn_moves(prev_square, chessboard)
@@ -402,9 +385,7 @@ def is_valid_move(prev_square: tuple,
     elif (piece_moved == 'k') or (piece_moved == 'K'):
         valid_moves_list = get_king_moves(prev_square, chessboard)
     else:
-        print('Piece type not found: ' + piece_moved)
-        return False
-
+        valid_moves_list = []
     if hints:
         count_int = 1
         valid_moves_message = ''
@@ -423,10 +404,8 @@ def is_valid_move(prev_square: tuple,
 
     if next_square not in valid_moves_list:
         return False
-
-    # reaching here means move is valid for the piece type
-    # (king, queen, bishop, knight, rook, pawn)
-    return True
+    else:
+        return True
 
 
 def move_piece(prev_square: tuple,
@@ -457,7 +436,7 @@ reenter_move = False
 # init board for new game
 chessboard_dict = init_board(chessboard_dict)
 
-chessboard_dict[(5, 2)] = "b"
+chessboard_dict[(3, 1)] = "k"
 
 print('CmdL Chess')
 print('Version 1.0')

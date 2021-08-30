@@ -19,13 +19,13 @@ Updated functions:
   there's no scenario where you'd intentionally run one without running the
   other
 - renamed convert_alg_to_grid to get_square_alg_to_grid to follow the
-  nomeclature "get_..." if returning data, not void or returning bool
+  nomenclature "get_..." if returning data, not void or returning bool
 - renamed convert_grid_to_alg to get_square_grid_to_alg to follow the
-  nomeclature "get_..." if returning data
+  nomenclature "get_..." if returning data
 - refactored validate_move and relocated the logic that calculates all possible
   valid moves for any piece into many new functions that only calculate possible
   valid moves for a specific type of piece, such as get_pawn_moves
-- renamed validate_move to is_valid_move to follow the nomeclature "is..." if
+- renamed validate_move to is_valid_move to follow the nomenclature "is..." if
   returning bool
 Added functions:
 - get_pawn_moves - given a pawn coordinates as a tuple and board as dict of
@@ -70,9 +70,14 @@ Updated functions:
 To-Do:
 - add get_king_moves
 - add checkmate
+- get_bishop_moves can be refactored to remove wordy if-else
 - get_rook_moves code can be refactored based on get_bishop_moves
-- can get_pawn_moves be refactored based on get_bishop_moves?
-- didn't end up using print_board function, remove?
+- get_knight_moves code can be refactored based on get_bishop_moves
+- get_queen_moves code can be refactored based on get_bishop_moves
+- get_bishop_moves add catch KeyError for out_of_bounds, remove row/col check
+- get_rook_moves add catch KeyError for out_of_bounds, remove row/col check
+- get_knight_moves add catch KeyError for out_of_bounds, remove row/col check
+- get_queen_moves add catch KeyError for out_of_bounds, remove row/col check
 
 2021/08/30
 Updated functions:
@@ -82,3 +87,13 @@ Updated functions:
   steps when evaluating each direction
 - refactored get_knight_moves by changing out if-else for iterable list of
   steps when evaluating each direction
+- refactored get_rook_moves by changing 4 for-loops (one for each
+  direction) for more concise code based on get_queen_moves
+- caught KeyError exception, when evaluating out-of-bounds squares for
+  get_bishop_moves, get_queen_moves, get_rook_moves, get_knight_moves
+Added functions:
+- get_king_moves - given a pawn coordinates as a tuple and board as dict of
+  tuples, return all possible valid moves as a list of tuples
+To-Do:
+- add checkmate
+- refactor get_pawn_moves based on get_bishop_moves
