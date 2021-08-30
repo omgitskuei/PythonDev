@@ -73,3 +73,12 @@ To-Do:
 - get_rook_moves code can be refactored based on get_bishop_moves
 - can get_pawn_moves be refactored based on get_bishop_moves?
 - didn't end up using print_board function, remove?
+
+2021/08/30
+Updated functions:
+- refactored get_bishop_moves by changing out if-else for iterable list of
+  steps when evaluating each direction
+- refactored get_queen_moves by changing out if-else for iterable list of
+  steps when evaluating each direction
+- refactored get_knight_moves by changing out if-else for iterable list of
+  steps when evaluating each direction

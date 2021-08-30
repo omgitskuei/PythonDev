@@ -274,28 +274,11 @@ def get_bishop_moves(bishop_coords: tuple,
     valid_moves_list = []
     row, col = bishop_coords
     # step contains pairs where KEY is direction, VALUE is x,y step
-    steps = {'8a': (1, -1), '8h': (1, 1), '1a': (-1, -1), '1h': (-1, 1)}
+    steps = [(1, -1), (1, 1), (-1, -1), (-1, 1)]
     # bishop moves go in 4 directions
     for x in range(0, 4, 1):
-        if x == 0:
-            # add bishop moves going from piece towards 8a direction
-            row_step = steps.get('8a')[0]  # 1
-            col_step = steps.get('8a')[1]  # -1
-        elif x == 1:
-            # add bishop moves going from piece towards 8h direction
-            row_step = steps.get('8h')[0]  # 1
-            col_step = steps.get('8h')[1]  # 1
-        elif x == 2:
-            # add bishop moves going from piece towards 1a direction
-            row_step = steps.get('1a')[0]  # -1
-            col_step = steps.get('1a')[1]  # -1
-        elif x == 3:
-            # add bishop moves going from piece towards 1h direction
-            row_step = steps.get('1h')[0]  # -1
-            col_step = steps.get('1h')[1]  # 1
-        else:
-            print("ERROR - GET_BISHOP_MOVES: error finding step pair")
-            break
+        row_step = steps[x][0]
+        col_step = steps[x][1]
         offset = 1
         flag_blocked = False
         for y in range(1, 9 - row, 1):
@@ -323,39 +306,12 @@ def get_knight_moves(knight_coords: tuple,
                      chessboard: dict):
     valid_moves_list = []
     # step contains pairs where KEY is direction, VALUE is x,y step
-    steps = {'white_white_queen': (2, -1), 'white_white_king': (2, 1),
-             'black_black_queen': (-2, -1), 'black_black_king': (-2, 1),
-             'queen_queen_white': (1, -2), 'queen_queen_black': (-1, -2),
-             'king_king_white': (1, 2), 'king_king_black': (-1, 2)}
+    steps = [(2, -1), (2, 1), (-2, -1), (-2, 1),
+             (1, -2), (-1, -2), (1, 2), (-1, 2)]
     # knights move in 8 directions, gets steps for row, col for each direction
     for x in range(0, 8, 1):
-        if x == 0:
-            row_step = steps.get('white_white_queen')[0]
-            col_step = steps.get('white_white_queen')[1]
-        elif x == 1:
-            row_step = steps.get('white_white_king')[0]
-            col_step = steps.get('white_white_king')[1]
-        elif x == 2:
-            row_step = steps.get('black_black_queen')[0]
-            col_step = steps.get('black_black_queen')[1]
-        elif x == 3:
-            row_step = steps.get('black_black_king')[0]
-            col_step = steps.get('black_black_king')[1]
-        elif x == 4:
-            row_step = steps.get('queen_queen_white')[0]
-            col_step = steps.get('queen_queen_white')[1]
-        elif x == 5:
-            row_step = steps.get('queen_queen_black')[0]
-            col_step = steps.get('queen_queen_black')[1]
-        elif x == 6:
-            row_step = steps.get('king_king_white')[0]
-            col_step = steps.get('king_king_white')[1]
-        elif x == 7:
-            row_step = steps.get('king_king_black')[0]
-            col_step = steps.get('king_king_black')[1]
-        else:
-            print("ERROR - GET_KNIGHT_MOVES: error finding step pair")
-            break
+        row_step = (steps[x])[0]
+        col_step = (steps[x])[1]
         # knight moves ignore other pieces along its path, so don't need a loop
         # knight can move to empty square
         target_coords = (knight_coords[0] + row_step,
@@ -379,39 +335,12 @@ def get_knight_moves(knight_coords: tuple,
 def get_queen_moves(queen_coords: tuple,
                     chessboard: dict):
     valid_moves_list = []
-    steps = {'king': (0, 1), 'queen': (0, -1),
-             'white': (1, 0), 'black': (-1, 0),
-             'white_queen': (1, -1), 'white_king': (1, 1),
-             'black_queen': (-1, -1), 'black_king': (-1, 1)}
+    steps = [(0, 1), (0, -1), (1, 0), (-1, 0),  # straight directions
+             (1, -1), (1, 1), (-1, -1), (-1, 1)]  # diagonal directions
     # queens move in 8 directions, gets steps for row, col for each direction
     for x in range(0, 8, 1):
-        if x == 0:
-            row_step = steps.get('king')[0]
-            col_step = steps.get('king')[1]
-        elif x == 1:
-            row_step = steps.get('queen')[0]
-            col_step = steps.get('queen')[1]
-        elif x == 2:
-            row_step = steps.get('white')[0]
-            col_step = steps.get('white')[1]
-        elif x == 3:
-            row_step = steps.get('black')[0]
-            col_step = steps.get('black')[1]
-        elif x == 4:
-            row_step = steps.get('white_queen')[0]
-            col_step = steps.get('white_queen')[1]
-        elif x == 5:
-            row_step = steps.get('white_king')[0]
-            col_step = steps.get('white_king')[1]
-        elif x == 6:
-            row_step = steps.get('black_queen')[0]
-            col_step = steps.get('black_queen')[1]
-        elif x == 7:
-            row_step = steps.get('black_king')[0]
-            col_step = steps.get('black_king')[1]
-        else:
-            print("ERROR - GET_QUEEN_MOVES: error finding step pair")
-            break
+        row_step = (steps[x])[0]
+        col_step = (steps[x])[1]
         offset = 1
         flag_blocked = False
         for y in range(1, 9, 1):
@@ -528,7 +457,7 @@ reenter_move = False
 # init board for new game
 chessboard_dict = init_board(chessboard_dict)
 
-chessboard_dict[(5, 2)] = "q"
+chessboard_dict[(5, 2)] = "b"
 
 print('CmdL Chess')
 print('Version 1.0')
