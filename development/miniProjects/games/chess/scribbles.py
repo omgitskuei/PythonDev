@@ -14,12 +14,11 @@ class Moves:
         self.coords = coords
         self.possible_moves
 
+#import chess
 
-import chess
-
-board = chess.board()
-
-print(board)
+# board = chess.board()
+#
+# print(board)
 
 
 unicode_piece_symbols = {
@@ -29,5 +28,5 @@ unicode_piece_symbols = {
         "q": "♕", "Q": "♛",
         "k": "♔", "K": "♚",
         "p": "♙", "P": "♟",
-        "_":"_"
+        "_": "_"
     }
