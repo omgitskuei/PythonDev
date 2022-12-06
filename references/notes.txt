@@ -1,0 +1,274 @@
+One thing to note is that Python has two kinds of divisions. The // operator is called
+the "floor division", and when it is used for two integer numbers, it return a
+(truncated) int value. The modulo operator % is used to get the remainder after floor
+division. All operators, +, -, *, %, and //, except /, return integer values when both
+operands are integers. Otherwise they return float values. As for the (normal)
+division (/), it always returns a float value regardless of the types of their
+arguments.
+
+
+As we can see from these few examples, numbers are generally converted to True
+except for 0 (int) and 0.0 (float), whose Boolean values are False.
+
+bool(None)  # returns False
+
+The Boolean value of None is always False.
+
+
+Python’s builtin dir function lists all attributes of a given object, including all
+available methods. As we will see later in the book, the set of the (initial) attributes
+of an object are based on the attributes of its type (which is also an object ). Hence
+all list objects include the attributes of the list type.
+For instance,
+>>> dir(list)
+['__add__', '__class__', '__class_getitem__', '__contains__',
+'__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__',
+'__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__',
+'__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__',
+'__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__',
+'__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__',
+'__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__',
+'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop',
+'remove', 'reverse', 'sort']
+There is quite a bit. But, we recognize the aforementioned three methods, append,
+pop, and sort, which we used with some list objects earlier. Note that the value of
+the dir function call is a list (i.e., a list literal), as indicated by the pair of starting and
+ending square brackets, and its items are all of the string type.
+You can notice that the names of many methods, and other attributes, start and end
+with double underscores (__), which are often called the "dunder attributes" (or, the
+"dunder methods", etc.). These are special attribute
+
+If you need more information on a particular method, you can again use the help
+function. For instance,
+>>> help(list.append)
+5.11. Help!!
+92
+Help on method_descriptor:
+append(self, object, /)
+Append object to the end of the list.
+(END) ①
+① You may have to press "q" at this point to go back to the REPL prompt.
+
+
+There is an "Easter egg" hidden in Python.  Try "import this" in the Python REPL:
+>>> import this
+The Zen of Python, by Tim Peters
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+
+
+Historically, there have been a number of different incarnations of "virtual
+environments". Currently, however, many people use the standard library venv. We
+will use venv in this book. (Just keep in mind that there are other alternatives.)
+
+If you use Python distributions like Anaconda, then they might have
+their own way of setting up virtual environments. We will not
+discuss Anaconda in this book, but it is mainly used for data science
+and machine learning projects,
+In the project folder, rps, type this:
+$ python -m venv venv
+If you happen to have more than one versions of Python installed on your computer,
+then use the appropriate command (e.g., instead of python) to use a particular
+version of your choice. As indicated, the most recent version (3.10 as of this writing)
+is recommended.
+The author uses the python3 command. For instance,
+9.2. Virtual Environments
+111
+$ python3 -m venv venv
+As we have seen before, the -m flag executes the specified module, venv in this case.
+The last argument venv (or, ./venv) is the folder that will be used by the venv
+module to store any virtual environment specific data. The folder name is arbitrary,
+but names like venv or virtualenv, or something similar, are commonly used. As
+stated, you can create a venv folder in a shared location as well (e.g., to be shared by
+multiple Python programs/projects).
+Make sure that the command runs successfully, and that you have the venv subfolder
+in the current working directory (if you are following exactly what we are doing
+here). Then do the following, if you use a Bourne shell (like BASH or ZSH):
+$ source venv/bin/activate
+Or, if you use a flavor of C shell,
+$ source venv/bin/activate.csh
+The source Unix command executes the shell script activate or activate.csh in
+the current shell. The subfolder name venv in the relative path
+({.}/)venv/bin/activate(.csh) is the name of the folder that we just used
+while creating this virtual environment. After executing this command,
+(venv) $
+You can notice that the shell prompt has changed. It is now preceded by (venv). As
+stated, the $ symbol is used for the normal shell prompt in this book, and it may be
+different on your system (depending on your particular shell and its configurations).
+On the author’s computer (using the BASH default settings), it looks like this:
+9.2. Virtual Environments
+112
+(venv) harry@dory:~/projects/rps$
+Note that, now everybody uses the same command python regardless of what exact
+command they used to create a venv from the shell. For instance, in the author’s
+computer,
+(venv) $ python --version ①
+Python 3.10.4
+(venv) $
+① Note that python is used, not python3.
+You can exit the current virtual environment as follows:
+(venv) $ deactivate
+$
+We will just use the shell prompt $ for the rest of the book, for simplicity, even when
+we are in a particular Python virtual environment.
+
+As stated, if you are on Windows and use CMD or PowerShell (e.g.,
+instead of using a Linux terminal on WSL), then you may have to do
+some Web search to figure out what the corresponding commands
+are, in this step, as well as throughout this book.
+
+
+Now, if you have decided to use venv for your rock paper scissors project, then
+activate it.
+$ . venv/bin/activate ①
+(venv) $
+① In BASH, the . command is a synonym to the source command.
+As stated, we will just use $ for all different prompts, including (venv) $, from now
+on, for the sake of simplicity. Then, do the following:
+$ python -m pip install -U pip autopep8 ①
+① First, note that we are in the currently active virtual environment. Second, you
+can use the pip CLI command if you have it on your system. Otherwise, you can
+always do python -m pip.
+The above command likely updates the pip module (e.g., in the currently active
+virtual environment) and installs the autopep8 module (e.g., because it does not
+have it in the newly created virtual environment). We can also do it in two separate
+commands:
+$ python -m pip install -U pip
+$ python -m pip install autopep8
+The autopep8 module is used for auto styling and formatting during development.
+
+
+$ touch .gitignore
+The touch Unix command updates the timestamp of a file, if it exists. Otherwise, it
+creates a new file with the given name. Note the leading dot . in the name. The "dot
+files" do not show up through ls by default. You will need to do ls -a (typically ls
+-la for the "long" listing) to also list the dot files.
+
+
+In this example, we
+do git add ., as in "stage all changes in the current directory, including all its
+subdirectories, if any".
+
+
+>>> import random ①
+>>> dir(random)
+['BPF', 'LOG4', 'NV_MAGICCONST', 'RECIP_BPF', 'Random', 'SG_MAGICCONST',
+'SystemRandom', 'TWOPI', '_ONE', '_Sequence', '_Set', '__all__',
+'__builtins__', '__cached__', '__doc__', '__file__', '__loader__',
+'__name__', '__package__', '__spec__', '_accumulate', '_acos', '_bisect',
+'_ceil', '_cos', '_e', '_exp', '_floor', '_index', '_inst', '_isfinite',
+'_log', '_os', '_pi', '_random', '_repeat', '_sha512', '_sin', '_sqrt',
+'_test', '_test_generator', '_urandom', '_warn', 'betavariate', 'choice',
+'choices', 'expovariate', 'gammavariate', 'gauss', 'getrandbits',
+'getstate', 'lognormvariate', 'normalvariate', 'paretovariate',
+'randbytes', 'randint', 'random', 'randrange', 'sample', 'seed',
+'setstate', 'shuffle', 'triangular', 'uniform', 'vonmisesvariate',
+'weibullvariate']
+
+
+>>> def fn(): ①
+... print("I am a function")
+...
+>>> fn ②
+<function fn at 0x7fda1f87d2d0> ③
+>>> id(fn), hex(id(fn))
+(140574808593104, '0x7fda1f87d2d0') ④
+>>>
+>>> type(fn) ⑤
+<class 'function'>
+>>> fn() ⑥
+I am a function
+
+
+Now, interestingly, we can add any additional attributes to this object. For example,
+>>> fn.a = 33
+>>> fn.a
+33
+>>> def donut():
+... print("I am Homer Simpson. I want donuts.")
+10.3. Function Definition
+134
+...
+>>> fn.f = donut
+>>> fn.f()
+I am Homer Simpson. I want donuts.
+We added two extra (arbitrary) attributes, a and f, to this object. a is a data attribute
+and f is a method. If we list all attributes of this function object at this point,
+>>> dir(fn)
+['__annotations__', '__builtins__', '__call__', ... , 'a', 'f']
+It now includes the two extra attributes, a and f. If you are familiar with some
+statically typed programming languages, then this may all seem like a hocus pocus.
+How can you do that with a function?  But, this is Python. 
+
+We will not go deep into the Python internals in this book, but
+notice the method attribute, fn.__call__. This is what makes the
+fn function object different from other objects like the number 3.
+This attribute makes fn "callable". That is, fn() is a valid
+expression whereas 3() is not.
+
+
+>>> 2 < 3
+True
+>>> "aa" < "b"
+True
+>>> True < 3
+True
+>>> 2 < "3"
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: '<' not supported between instances of 'int' and 'str'
+
+
+you can just declare a variable and
+initialize it with None in Python. This is a valid assignment. But, it is
+really not the same as the variables being null in other C-style
+languages. None in Python is a valid real object unlike null.
+Furthermore, there are very few circumstances where you need to
+introduce variables with the initial None value when you program
+in Python. (You can say that is not Pythonic.)
+
+When you create a module, that is, when you write a program that will only be used
+as a module, you primarily include definitions so that they can be used in other
+12.1. Python Modules
+188
+modules and scripts. (Let’s call this a "module module".)
+The names that are intended to be shared with other programs start with non-
+underscore letters (e.g., English alphabets). All other "hidden" names should start
+with underscores (_). This is because Python’s wildcard import syntax from <mod>
+import * does not import names that start with underscores by default.
+It should be noted, however, that Python does not have a module-level access
+control. All names in a module can be used in other programs if the module can be
+located and it can be installed/imported. That is, there is no "public" vs "private"
+names in the Python modules.
+In a "module module", any executable, non-definition statements should be used for
+the "initialization" purposes only. As stated, a module can be imported more than
+once in a program, and these statements in the same module are run for the first
+time import only. In fact, we generally recommend not to use this kind of statements
+in a "module module". It is a relatively rare use case that a module requires any
+specific initialization steps during an import.
+
+
+One of the module’s predefined attributes is
+__name__, which is initialized with its module name (e.g., by the Python interpreter).
+Hence, this Boolean expression __name__ == "__main__" will evaluate to True
+12.1. Python Modules
+190
+only if the module is run as a "script" (e.g., as opposed to being imported via the
+import statement).
